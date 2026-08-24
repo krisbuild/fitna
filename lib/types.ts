@@ -14,9 +14,7 @@ export type MealType = "breakfast" | "lunch" | "dinner" | "snack";
 export type DietPattern =
   | "none"
   | "vegetarian"
-  | "pescatarian"
   | "vegan"
-  | "halal"
   | "no_pork"
   | "no_beef";
 
@@ -38,20 +36,9 @@ export const DIET_PATTERNS: DietPatternInfo[] = [
     description: "No meat, poultry, or fish. Dairy and eggs are usually fine.",
   },
   {
-    id: "pescatarian",
-    label: "Pescatarian",
-    description: "Vegetarian, plus fish and seafood — no other meat.",
-  },
-  {
     id: "vegan",
     label: "Vegan",
     description: "No animal products at all — no meat, dairy, eggs, or honey.",
-  },
-  {
-    id: "halal",
-    label: "Halal",
-    description:
-      "Meat from halal-slaughtered sources only — no pork, no alcohol as an ingredient.",
   },
   {
     id: "no_pork",
