@@ -94,17 +94,17 @@ export default function MealScriptPage() {
         <p className="label-caps" style={{ color: seasonInfo.color }}>
           {seasonInfo.name}
         </p>
-        <h1 className="font-display text-2xl sm:text-3xl font-semibold text-ink">
+        <h1 className="font-display text-2xl sm:text-3xl font-semibold text-cream">
           Today's Meal Script
         </h1>
-        <p className="text-ink-soft text-sm mt-1">
+        <p className="text-cream-soft text-sm mt-1">
           Built for your {profile.fuelTarget} kcal Fuel Target.
         </p>
       </div>
 
       {!script ? (
         <div className="card p-8 text-center space-y-4">
-          <p className="text-ink-soft text-sm">
+          <p className="text-cream-soft text-sm">
             No Meal Script yet for today. Generate one built around your
             Season and targets.
           </p>
@@ -119,16 +119,16 @@ export default function MealScriptPage() {
       ) : (
         <>
           <div className="flex items-center justify-between card px-5 py-4">
-            <div className="flex items-center gap-2 text-sm text-ink-soft">
+            <div className="flex items-center gap-2 text-sm text-cream-soft">
               <IconFlame className="h-4 w-4 text-clay-500" />
               {Math.round(totalCalories)} kcal across {script.meals.length}{" "}
               meals
               {script.source === "rule" && (
-                <span className="text-xs text-ink-muted">(offline script)</span>
+                <span className="text-xs text-cream-soft">(offline script)</span>
               )}
             </div>
             <button
-              className="text-sm font-medium text-clay-600"
+              className="text-sm font-medium text-clay-300"
               onClick={generate}
               disabled={generating}
             >
@@ -144,10 +144,10 @@ export default function MealScriptPage() {
                     <p className="label-caps mb-1">
                       {MEAL_LABELS[meal.mealType] ?? meal.mealType}
                     </p>
-                    <h3 className="font-display text-lg font-semibold text-ink">
+                    <h3 className="font-display text-lg font-semibold text-cream">
                       {meal.title}
                     </h3>
-                    <p className="text-sm text-ink-soft mt-1">
+                    <p className="text-sm text-cream-soft mt-1">
                       {meal.description}
                     </p>
                   </div>
@@ -156,7 +156,7 @@ export default function MealScriptPage() {
                     disabled={loggedMeals.has(i)}
                     className={
                       loggedMeals.has(i)
-                        ? "shrink-0 inline-flex items-center gap-1.5 rounded-full bg-forest-50 text-forest-600 px-3 py-2 text-xs font-medium"
+                        ? "shrink-0 inline-flex items-center gap-1.5 rounded-full bg-mint/[0.15] text-mint px-3 py-2 text-xs font-medium"
                         : "shrink-0 btn-ghost !py-2 !px-3 text-xs"
                     }
                   >
@@ -169,27 +169,27 @@ export default function MealScriptPage() {
                     )}
                   </button>
                 </div>
-                <div className="grid grid-cols-4 gap-3 mt-4 pt-4 border-t border-black/[0.06] text-center">
+                <div className="grid grid-cols-4 gap-3 mt-4 pt-4 border-t border-white/[0.08] text-center">
                   <div>
-                    <div className="text-xs text-ink-muted">Kcal</div>
+                    <div className="text-xs text-cream-soft">Kcal</div>
                     <div className="font-semibold">
                       {Math.round(meal.calories)}
                     </div>
                   </div>
                   <div>
-                    <div className="text-xs text-ink-muted">Protein</div>
+                    <div className="text-xs text-cream-soft">Protein</div>
                     <div className="font-semibold">
                       {Math.round(meal.proteinG)}g
                     </div>
                   </div>
                   <div>
-                    <div className="text-xs text-ink-muted">Carbs</div>
+                    <div className="text-xs text-cream-soft">Carbs</div>
                     <div className="font-semibold">
                       {Math.round(meal.carbsG)}g
                     </div>
                   </div>
                   <div>
-                    <div className="text-xs text-ink-muted">Fat</div>
+                    <div className="text-xs text-cream-soft">Fat</div>
                     <div className="font-semibold">
                       {Math.round(meal.fatG)}g
                     </div>

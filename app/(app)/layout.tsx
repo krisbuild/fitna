@@ -31,10 +31,10 @@ export default function AppGroupLayout({
 
   if (authState === "loading" || profile === "loading" || !profile) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-sand-100">
-        <div className="flex flex-col items-center gap-3 text-ink-muted">
-          <span className="font-display text-2xl text-forest-600">Zuri</span>
-          <span className="text-sm">Setting your table…</span>
+      <div className="min-h-screen flex items-center justify-center bg-night">
+        <div className="flex flex-col items-center gap-3 text-cream-soft">
+          <span className="font-display text-2xl font-extrabold text-cream">zuri</span>
+          <span className="text-sm">setting your table…</span>
         </div>
       </div>
     );

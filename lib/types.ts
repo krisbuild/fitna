@@ -77,8 +77,8 @@ export const SEASONS: Record<Season, SeasonInfo> = {
     tagline: "Shedding weight, steady and sustainable",
     description:
       "A gentle calorie deficit built around filling, high-protein Nigerian meals — so you lose weight without losing your favourite food.",
-    color: "#A8432B",
-    colorSoft: "#F2C6B4",
+    color: "#FF7A55",
+    colorSoft: "rgba(255, 122, 85, 0.15)",
   },
   build: {
     id: "build",
@@ -86,8 +86,8 @@ export const SEASONS: Record<Season, SeasonInfo> = {
     tagline: "Gaining weight and strength, deliberately",
     description:
       "A calorie surplus focused on quality mass — more fuel, more protein, meal scripts built to help you grow.",
-    color: "#BE8825",
-    colorSoft: "#EEC97B",
+    color: "#FFC65C",
+    colorSoft: "rgba(255, 198, 92, 0.15)",
   },
   balance: {
     id: "balance",
@@ -95,8 +95,8 @@ export const SEASONS: Record<Season, SeasonInfo> = {
     tagline: "Healthy living, no extremes",
     description:
       "Maintenance eating that keeps your energy steady and your relationship with food easy — for the long run.",
-    color: "#1F3A2E",
-    colorSoft: "#9BB6A6",
+    color: "#5FCB8C",
+    colorSoft: "rgba(95, 203, 140, 0.15)",
   },
   forge: {
     id: "forge",
@@ -104,8 +104,8 @@ export const SEASONS: Record<Season, SeasonInfo> = {
     tagline: "Building muscle, high protein",
     description:
       "Calories held near maintenance with protein pushed high, so training turns into muscle instead of just fatigue.",
-    color: "#833522",
-    colorSoft: "#DB8362",
+    color: "#FF9466",
+    colorSoft: "rgba(255, 148, 102, 0.15)",
   },
 };
 

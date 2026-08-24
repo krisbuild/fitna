@@ -62,6 +62,12 @@ const config: Config = {
           DEFAULT: "#F6EFE4",
           soft: "#BBA997",
         },
+        // Bright success/positive accent for the dark theme (protein bars,
+        // "on track" / "saved" states) — forest-600 reads as near-black there.
+        mint: {
+          DEFAULT: "#5FCB8C",
+          soft: "rgba(95, 203, 140, 0.15)",
+        },
         // Season system colors
         season: {
           lean: "#A8432B",
@@ -80,8 +86,8 @@ const config: Config = {
         xl2: "1.25rem",
       },
       boxShadow: {
-        card: "0 2px 20px -4px rgba(32, 26, 22, 0.12)",
-        lift: "0 8px 30px -6px rgba(32, 26, 22, 0.18)",
+        card: "0 2px 20px -4px rgba(0, 0, 0, 0.4)",
+        lift: "0 10px 34px -6px rgba(0, 0, 0, 0.55)",
       },
     },
   },

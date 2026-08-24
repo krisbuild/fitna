@@ -70,8 +70,8 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8">
       <div>
-        <p className="text-ink-muted text-sm">{greeting()}</p>
-        <h1 className="font-display text-2xl sm:text-3xl font-semibold text-ink">
+        <p className="text-cream-soft text-sm">{greeting()}</p>
+        <h1 className="font-display text-2xl sm:text-3xl font-semibold text-cream">
           {profile.name}
         </h1>
       </div>
@@ -85,10 +85,10 @@ export default function DashboardPage() {
             size={168}
           >
             <div className="text-center">
-              <div className="font-display text-3xl font-semibold text-ink">
+              <div className="font-display text-3xl font-semibold text-cream">
                 {remaining}
               </div>
-              <div className="text-xs text-ink-muted mt-0.5">kcal left</div>
+              <div className="text-xs text-cream-soft mt-0.5">kcal left</div>
             </div>
           </ProgressRing>
           <div className="flex-1 w-full space-y-4">
@@ -96,19 +96,19 @@ export default function DashboardPage() {
               label="Protein"
               value={totals.proteinG}
               target={profile.proteinTargetG}
-              color="#A8432B"
+              color="#FF7A55"
             />
             <MacroBar
               label="Carbs"
               value={totals.carbsG}
               target={profile.carbsTargetG}
-              color="#BE8825"
+              color="#FFC65C"
             />
             <MacroBar
               label="Fat"
               value={totals.fatG}
               target={profile.fatTargetG}
-              color="#1F3A2E"
+              color="#5FCB8C"
             />
           </div>
         </div>
@@ -123,21 +123,21 @@ export default function DashboardPage() {
             Today's Meal Script
           </p>
           {script ? (
-            <p className="text-sm text-ink-soft">
+            <p className="text-sm text-cream-soft">
               {script.meals.length} meals planned for {seasonInfo.name}
             </p>
           ) : (
-            <p className="text-sm text-ink-soft">
+            <p className="text-sm text-cream-soft">
               Get AI-built meal ideas for {seasonInfo.name}
             </p>
           )}
         </div>
-        <IconArrowRight className="h-5 w-5 text-ink-muted shrink-0" />
+        <IconArrowRight className="h-5 w-5 text-cream-soft shrink-0" />
       </Link>
 
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="font-display text-xl font-semibold text-ink">
+          <h2 className="font-display text-xl font-semibold text-cream">
             Today's Plate
           </h2>
           <Link href="/plate/log" className="btn-primary !py-2 !px-4 text-sm">
@@ -147,7 +147,7 @@ export default function DashboardPage() {
         </div>
 
         {logs.length === 0 ? (
-          <div className="card p-8 text-center text-ink-muted text-sm">
+          <div className="card p-8 text-center text-cream-soft text-sm">
             Nothing on your Plate yet today. Log your first meal to start
             tracking toward your Fuel Target.
           </div>
@@ -158,7 +158,7 @@ export default function DashboardPage() {
             ).map((mealType) => (
               <div key={mealType}>
                 <p className="label-caps mb-2">{MEAL_LABELS[mealType]}</p>
-                <div className="card divide-y divide-black/[0.05]">
+                <div className="card divide-y divide-white/[0.08]">
                   {logs
                     .filter((l) => l.mealType === mealType)
                     .map((l) => (
@@ -167,17 +167,17 @@ export default function DashboardPage() {
                         className="flex items-center justify-between px-4 py-3.5"
                       >
                         <div>
-                          <p className="font-medium text-ink text-sm">
+                          <p className="font-medium text-cream text-sm">
                             {l.name}
                           </p>
-                          <p className="text-xs text-ink-muted">
+                          <p className="text-xs text-cream-soft">
                             {l.quantity}× {l.servingLabel} ·{" "}
                             {Math.round(l.calories)} kcal
                           </p>
                         </div>
                         <button
                           onClick={() => removeLog(l.id)}
-                          className="text-ink-muted hover:text-clay-600 p-2 -mr-2"
+                          className="text-cream-soft hover:text-clay-300 p-2 -mr-2"
                           aria-label="Remove entry"
                         >
                           <IconTrash className="h-4 w-4" />

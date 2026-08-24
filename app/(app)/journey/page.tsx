@@ -69,29 +69,29 @@ export default function JourneyPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-display text-2xl sm:text-3xl font-semibold text-ink">
+        <h1 className="font-display text-2xl sm:text-3xl font-semibold text-cream">
           Your Journey
         </h1>
-        <p className="text-ink-soft text-sm mt-1">
+        <p className="text-cream-soft text-sm mt-1">
           Tracking through {seasonInfo.name.toLowerCase()}.
         </p>
       </div>
 
       <div className="grid grid-cols-3 gap-4">
         <div className="card p-4 text-center">
-          <p className="text-xs text-ink-muted">Start</p>
+          <p className="text-xs text-cream-soft">Start</p>
           <p className="font-display text-xl font-semibold mt-1">
             {profile.weightKg}kg
           </p>
         </div>
         <div className="card p-4 text-center">
-          <p className="text-xs text-ink-muted">Current</p>
+          <p className="text-xs text-cream-soft">Current</p>
           <p className="font-display text-xl font-semibold mt-1">
             {currentWeight}kg
           </p>
         </div>
         <div className="card p-4 text-center">
-          <p className="text-xs text-ink-muted">Change</p>
+          <p className="text-xs text-cream-soft">Change</p>
           <p
             className="font-display text-xl font-semibold mt-1"
             style={{ color: seasonInfo.color }}
@@ -105,7 +105,7 @@ export default function JourneyPage() {
       <div className="card p-5">
         <p className="label-caps mb-4">Weight trend</p>
         {chartData.length < 2 ? (
-          <p className="text-sm text-ink-muted py-10 text-center">
+          <p className="text-sm text-cream-soft py-10 text-center">
             Log a weight entry to start seeing your trend.
           </p>
         ) : (
@@ -114,13 +114,13 @@ export default function JourneyPage() {
               <LineChart data={chartData}>
                 <XAxis
                   dataKey="label"
-                  tick={{ fontSize: 11, fill: "#8A7C70" }}
+                  tick={{ fontSize: 11, fill: "#BBA997" }}
                   axisLine={false}
                   tickLine={false}
                 />
                 <YAxis
                   domain={["dataMin - 2", "dataMax + 2"]}
-                  tick={{ fontSize: 11, fill: "#8A7C70" }}
+                  tick={{ fontSize: 11, fill: "#BBA997" }}
                   axisLine={false}
                   tickLine={false}
                   width={32}
@@ -129,8 +129,12 @@ export default function JourneyPage() {
                   formatter={(v: number) => [`${v}kg`, "Weight"]}
                   contentStyle={{
                     borderRadius: 12,
-                    border: "1px solid rgba(32,26,22,0.08)",
+                    backgroundColor: "#1F150E",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    color: "#F6EFE4",
                   }}
+                  labelStyle={{ color: "#BBA997" }}
+                  itemStyle={{ color: "#F6EFE4" }}
                 />
                 <Line
                   type="monotone"

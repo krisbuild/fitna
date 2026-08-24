@@ -38,18 +38,18 @@ export function AppShell({
       className="min-h-screen flex flex-col"
       style={{ ["--season-color" as string]: seasonInfo.color }}
     >
-      <header className="sticky top-0 z-20 bg-sand-100/90 backdrop-blur border-b border-black/[0.05]">
+      <header className="sticky top-0 z-20 bg-night/90 backdrop-blur border-b border-white/[0.08]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <Link href="/dashboard" className="flex items-center gap-2">
-            <span className="font-display text-xl font-semibold tracking-tight text-forest-600">
-              Zuri
+            <span className="font-display text-xl font-extrabold tracking-tight text-cream">
+              zuri
             </span>
           </Link>
           <div className="flex items-center gap-3">
             {profile && <SeasonBadge season={season} size="sm" />}
             <Link
               href="/settings"
-              className="h-9 w-9 flex items-center justify-center rounded-full hover:bg-black/[0.04] text-ink-soft"
+              className="h-9 w-9 flex items-center justify-center rounded-full hover:bg-white/5 text-cream-soft"
               aria-label="Settings"
             >
               <IconGear className="h-5 w-5" />
@@ -71,8 +71,8 @@ export function AppShell({
                   className={clsx(
                     "flex items-center gap-3 rounded-xl2 px-3.5 py-2.5 text-sm font-medium transition-colors",
                     active
-                      ? "bg-white shadow-card text-ink"
-                      : "text-ink-soft hover:bg-black/[0.03]"
+                      ? "bg-night-200 border border-white/[0.08] text-cream"
+                      : "text-cream-soft hover:bg-white/5"
                   )}
                 >
                   <Icon className="h-5 w-5" />
@@ -85,7 +85,7 @@ export function AppShell({
         </div>
       </div>
 
-      <nav className="sm:hidden fixed bottom-0 inset-x-0 z-20 bg-white/95 backdrop-blur border-t border-black/[0.06]">
+      <nav className="sm:hidden fixed bottom-0 inset-x-0 z-20 bg-night-100/95 backdrop-blur border-t border-white/[0.08]">
         <div className="grid grid-cols-5">
           {NAV_ITEMS.map((item) => {
             const active = pathname?.startsWith(item.href);
@@ -96,7 +96,7 @@ export function AppShell({
                 href={item.href}
                 className={clsx(
                   "flex flex-col items-center gap-1 py-2.5 text-[11px] font-medium",
-                  active ? "text-clay-500" : "text-ink-muted"
+                  active ? "text-pop" : "text-cream-soft"
                 )}
               >
                 <Icon className="h-5 w-5" />

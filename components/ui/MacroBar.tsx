@@ -15,15 +15,15 @@ export function MacroBar({
   return (
     <div>
       <div className="flex items-baseline justify-between mb-1.5">
-        <span className="text-sm font-medium text-ink-soft">{label}</span>
-        <span className="text-sm text-ink-muted">
-          <span className="font-semibold text-ink">{Math.round(value)}</span>
+        <span className="text-sm font-medium text-cream-soft">{label}</span>
+        <span className="text-sm text-cream-soft">
+          <span className="font-semibold text-cream">{Math.round(value)}</span>
           {" / "}
           {Math.round(target)}
           {unit}
         </span>
       </div>
-      <div className="h-2 rounded-full bg-black/[0.06] overflow-hidden">
+      <div className="h-2 rounded-full bg-white/[0.08] overflow-hidden">
         <div
           className="h-full rounded-full"
           style={{ width: `${pct}%`, backgroundColor: color }}

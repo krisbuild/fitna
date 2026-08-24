@@ -88,7 +88,7 @@ export default function SettingsPage() {
 
   return (
     <div className="max-w-lg space-y-8">
-      <h1 className="font-display text-2xl font-semibold text-ink">
+      <h1 className="font-display text-2xl font-semibold text-cream">
         Settings
       </h1>
 
@@ -126,12 +126,12 @@ export default function SettingsPage() {
             />
           </div>
         </div>
-        <div className="flex items-center justify-between pt-3 border-t border-black/[0.06]">
+        <div className="flex items-center justify-between pt-3 border-t border-white/[0.08]">
           <div>
-            <p className="text-sm font-medium text-ink">Body Mass Index</p>
-            <p className="text-xs text-ink-muted">{bmiCategory(bmi)}</p>
+            <p className="text-sm font-medium text-cream">Body Mass Index</p>
+            <p className="text-xs text-cream-soft">{bmiCategory(bmi)}</p>
           </div>
-          <span className="font-display text-xl font-semibold text-ink">
+          <span className="font-display text-xl font-semibold text-cream">
             {bmi.toFixed(1)}
           </span>
         </div>
@@ -146,8 +146,8 @@ export default function SettingsPage() {
             className={clsx(
               "w-full text-left rounded-xl2 border px-4 py-3 text-sm transition-colors",
               profile.activityLevel === lvl
-                ? "border-clay-500 bg-clay-50"
-                : "border-ink/[0.12]"
+                ? "border-clay-500 bg-clay-500/[0.15]"
+                : "border-white/[0.12]"
             )}
           >
             {ACTIVITY_LABELS[lvl]}
@@ -175,8 +175,8 @@ export default function SettingsPage() {
                 className={clsx(
                   "rounded-xl2 border px-4 py-3 text-sm font-medium transition-colors",
                   profile.worksOut === val
-                    ? "border-clay-500 bg-clay-50 text-clay-700"
-                    : "border-ink/[0.12] text-ink-soft"
+                    ? "border-clay-500 bg-clay-500/[0.15] text-clay-100"
+                    : "border-white/[0.12] text-cream-soft"
                 )}
               >
                 {val ? "Yes, I train" : "Not right now"}
@@ -236,7 +236,7 @@ export default function SettingsPage() {
             onClick={() => setProfile({ ...profile, season: s.id as Season })}
             className={clsx(
               "w-full text-left rounded-xl2 border px-4 py-3 transition-colors",
-              profile.season === s.id ? "border-2" : "border-ink/[0.12]"
+              profile.season === s.id ? "border-2" : "border-white/[0.12]"
             )}
             style={
               profile.season === s.id
@@ -244,8 +244,8 @@ export default function SettingsPage() {
                 : undefined
             }
           >
-            <p className="font-medium text-ink">{s.name}</p>
-            <p className="text-xs text-ink-soft mt-0.5">{s.tagline}</p>
+            <p className="font-medium text-cream">{s.name}</p>
+            <p className="text-xs text-cream-soft mt-0.5">{s.tagline}</p>
           </button>
         ))}
       </div>
@@ -265,8 +265,8 @@ export default function SettingsPage() {
                 className={clsx(
                   "rounded-full border px-3.5 py-2 text-sm font-medium transition-colors",
                   profile.dietPattern === d.id
-                    ? "border-clay-500 bg-clay-50 text-clay-700"
-                    : "border-ink/[0.15] text-ink-soft"
+                    ? "border-clay-500 bg-clay-500/[0.15] text-clay-100"
+                    : "border-white/[0.15] text-cream-soft"
                 )}
               >
                 {d.label}
@@ -308,7 +308,7 @@ export default function SettingsPage() {
                   key={v}
                   type="button"
                   onClick={() => removeExclusion(v)}
-                  className="rounded-full bg-clay-50 text-clay-700 px-3 py-1.5 text-xs font-medium"
+                  className="rounded-full bg-clay-500/[0.15] text-clay-100 px-3 py-1.5 text-xs font-medium"
                 >
                   {v} ✕
                 </button>
@@ -331,12 +331,12 @@ export default function SettingsPage() {
               className={clsx(
                 "w-full text-left rounded-xl2 border px-4 py-3 transition-colors",
                 profile.budgetStyle === b.id
-                  ? "border-clay-500 bg-clay-50"
-                  : "border-ink/[0.12]"
+                  ? "border-clay-500 bg-clay-500/[0.15]"
+                  : "border-white/[0.12]"
               )}
             >
-              <p className="font-medium text-ink text-sm">{b.label}</p>
-              <p className="text-xs text-ink-soft mt-0.5">{b.description}</p>
+              <p className="font-medium text-cream text-sm">{b.label}</p>
+              <p className="text-xs text-cream-soft mt-0.5">{b.description}</p>
             </button>
           ))}
         </div>
@@ -365,18 +365,18 @@ export default function SettingsPage() {
           {saving ? "Saving…" : "Save changes"}
         </button>
         {savedAt && (
-          <span className="text-sm text-forest-600">Saved ✓</span>
+          <span className="text-sm text-mint">Saved ✓</span>
         )}
       </div>
 
-      <div className="pt-6 border-t border-black/[0.06] space-y-3">
+      <div className="pt-6 border-t border-white/[0.08] space-y-3">
         {mode === "supabase" ? (
           <button className="btn-ghost" onClick={signOut}>
             Sign out
           </button>
         ) : (
           <button
-            className="text-sm text-clay-600 font-medium"
+            className="text-sm text-clay-300 font-medium"
             onClick={resetDemo}
           >
             Reset demo data

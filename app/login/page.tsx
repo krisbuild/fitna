@@ -29,12 +29,12 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-sand-100 flex items-center justify-center px-6">
+    <div className="min-h-screen bg-night flex items-center justify-center px-6">
       <div className="max-w-sm w-full">
-        <span className="font-display text-2xl font-semibold text-forest-600">
+        <span className="font-display text-2xl font-semibold text-cream">
           Zuri
         </span>
-        <h1 className="font-display text-2xl font-semibold text-ink mt-6">
+        <h1 className="font-display text-2xl font-semibold text-cream mt-6">
           Welcome back
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4 mt-6">
@@ -54,14 +54,14 @@ export default function LoginPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {error && <p className="text-sm text-clay-600">{error}</p>}
+          {error && <p className="text-sm text-clay-300">{error}</p>}
           <button className="btn-primary w-full" disabled={loading}>
             {loading ? "Signing in…" : "Sign in"}
           </button>
         </form>
-        <p className="text-sm text-ink-muted mt-6">
+        <p className="text-sm text-cream-soft mt-6">
           New to Zuri?{" "}
-          <Link href="/signup" className="text-clay-600 font-medium">
+          <Link href="/signup" className="text-clay-300 font-medium">
             Create an account
           </Link>
         </p>

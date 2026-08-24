@@ -76,10 +76,10 @@ export default function CoachPage() {
   return (
     <div className="max-w-2xl flex flex-col h-[calc(100vh-12.5rem)] sm:h-[calc(100vh-8rem)]">
       <div className="mb-4">
-        <h1 className="font-display text-2xl font-semibold text-ink">
+        <h1 className="font-display text-2xl font-semibold text-cream">
           Your Coach
         </h1>
-        <p className="text-ink-soft text-sm mt-1">
+        <p className="text-cream-soft text-sm mt-1">
           Ask anything about food, your Season, or how to stay on track.
         </p>
       </div>
@@ -91,7 +91,7 @@ export default function CoachPage() {
               <button
                 key={s}
                 onClick={() => send(s)}
-                className="text-xs font-medium rounded-full border border-ink/[0.15] px-3 py-2 text-ink-soft hover:bg-black/[0.03]"
+                className="text-xs font-medium rounded-full border border-white/[0.15] px-3 py-2 text-cream-soft hover:bg-white/5"
               >
                 {s}
               </button>
@@ -110,8 +110,8 @@ export default function CoachPage() {
             <div
               className={
                 m.role === "user"
-                  ? "max-w-[80%] rounded-2xl rounded-br-sm bg-forest-600 text-sand-50 px-4 py-2.5 text-sm"
-                  : "max-w-[80%] rounded-2xl rounded-bl-sm bg-white shadow-card px-4 py-2.5 text-sm text-ink"
+                  ? "max-w-[80%] rounded-2xl rounded-br-sm bg-mint text-night font-medium px-4 py-2.5 text-sm"
+                  : "max-w-[80%] rounded-2xl rounded-bl-sm bg-night-200 border border-white/[0.08] px-4 py-2.5 text-sm text-cream"
               }
             >
               {m.content}
@@ -120,7 +120,7 @@ export default function CoachPage() {
         ))}
         {sending && (
           <div className="flex justify-start">
-            <div className="rounded-2xl rounded-bl-sm bg-white shadow-card px-4 py-2.5 text-sm text-ink-muted">
+            <div className="rounded-2xl rounded-bl-sm bg-night-200 border border-white/[0.08] px-4 py-2.5 text-sm text-cream-soft">
               Thinking…
             </div>
           </div>

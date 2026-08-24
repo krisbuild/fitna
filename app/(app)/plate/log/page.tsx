@@ -84,7 +84,7 @@ export default function LogFoodPage() {
 
   return (
     <div className="max-w-lg space-y-6">
-      <h1 className="font-display text-2xl font-semibold text-ink">
+      <h1 className="font-display text-2xl font-semibold text-cream">
         Log food
       </h1>
 
@@ -98,8 +98,8 @@ export default function LogFoodPage() {
               className={clsx(
                 "rounded-xl2 border px-2 py-2.5 text-xs font-medium transition-colors",
                 mealType === m.id
-                  ? "border-clay-500 bg-clay-50 text-clay-700"
-                  : "border-ink/[0.12] text-ink-soft"
+                  ? "border-clay-500 bg-clay-500/[0.15] text-clay-100"
+                  : "border-white/[0.12] text-cream-soft"
               )}
             >
               {m.label}
@@ -138,21 +138,21 @@ export default function LogFoodPage() {
                   className="w-full text-left card px-4 py-3 flex items-center justify-between hover:shadow-lift transition-shadow"
                 >
                   <div>
-                    <p className="font-medium text-sm text-ink">{f.name}</p>
-                    <p className="text-xs text-ink-muted">
+                    <p className="font-medium text-sm text-cream">{f.name}</p>
+                    <p className="text-xs text-cream-soft">
                       {f.servingLabel} · {f.calories} kcal
                     </p>
                   </div>
-                  <IconArrowRight className="h-4 w-4 text-ink-muted" />
+                  <IconArrowRight className="h-4 w-4 text-cream-soft" />
                 </button>
               ))}
               {results.length === 0 && (
-                <p className="text-sm text-ink-muted py-4 text-center">
+                <p className="text-sm text-cream-soft py-4 text-center">
                   No matches. Try another name, or log a custom food.
                 </p>
               )}
               <button
-                className="text-sm text-clay-600 font-medium pt-2"
+                className="text-sm text-clay-300 font-medium pt-2"
                 onClick={() => setCustomMode(true)}
               >
                 Can't find it? Log a custom food →
@@ -162,15 +162,15 @@ export default function LogFoodPage() {
             <div className="card p-5 space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-display text-lg font-semibold text-ink">
+                  <p className="font-display text-lg font-semibold text-cream">
                     {selected.name}
                   </p>
-                  <p className="text-xs text-ink-muted">
+                  <p className="text-xs text-cream-soft">
                     {selected.servingLabel} per serving
                   </p>
                 </div>
                 <button
-                  className="text-sm text-ink-muted"
+                  className="text-sm text-cream-soft"
                   onClick={() => setSelected(null)}
                 >
                   Change
@@ -198,27 +198,27 @@ export default function LogFoodPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-4 gap-3 pt-2 border-t border-black/[0.06] text-center">
+              <div className="grid grid-cols-4 gap-3 pt-2 border-t border-white/[0.08] text-center">
                 <div>
-                  <div className="text-xs text-ink-muted">Kcal</div>
+                  <div className="text-xs text-cream-soft">Kcal</div>
                   <div className="font-semibold">
                     {Math.round(selected.calories * quantity)}
                   </div>
                 </div>
                 <div>
-                  <div className="text-xs text-ink-muted">Protein</div>
+                  <div className="text-xs text-cream-soft">Protein</div>
                   <div className="font-semibold">
                     {Math.round(selected.proteinG * quantity)}g
                   </div>
                 </div>
                 <div>
-                  <div className="text-xs text-ink-muted">Carbs</div>
+                  <div className="text-xs text-cream-soft">Carbs</div>
                   <div className="font-semibold">
                     {Math.round(selected.carbsG * quantity)}g
                   </div>
                 </div>
                 <div>
-                  <div className="text-xs text-ink-muted">Fat</div>
+                  <div className="text-xs text-cream-soft">Fat</div>
                   <div className="font-semibold">
                     {Math.round(selected.fatG * quantity)}g
                   </div>
@@ -238,11 +238,11 @@ export default function LogFoodPage() {
       ) : (
         <div className="card p-5 space-y-4">
           <div className="flex items-center justify-between">
-            <p className="font-display text-lg font-semibold text-ink">
+            <p className="font-display text-lg font-semibold text-cream">
               Custom food
             </p>
             <button
-              className="text-sm text-ink-muted"
+              className="text-sm text-cream-soft"
               onClick={() => setCustomMode(false)}
             >
               Back to search

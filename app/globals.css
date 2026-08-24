@@ -2,42 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --season-color: theme("colors.season.balance");
-  --season-soft: theme("colors.season.balance-soft");
-}
-
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: theme("colors.sand.100");
-  color: theme("colors.ink.DEFAULT");
+  background-color: theme("colors.night.DEFAULT");
+  color: theme("colors.cream.DEFAULT");
 }
 
 @layer components {
   .card {
-    @apply bg-white rounded-xl2 shadow-card border border-black/[0.04];
+    @apply bg-night-200 rounded-xl2 border border-white/[0.08];
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-full bg-clay-500 text-sand-50 font-medium px-5 py-3 transition-colors hover:bg-clay-600 active:bg-clay-700 disabled:opacity-50 disabled:pointer-events-none;
+    @apply inline-flex items-center justify-center rounded-full bg-pop text-pop-ink font-bold px-5 py-3 transition hover:brightness-105 active:brightness-95 disabled:opacity-50 disabled:pointer-events-none;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-full bg-forest-600 text-sand-50 font-medium px-5 py-3 transition-colors hover:bg-forest-700 disabled:opacity-50 disabled:pointer-events-none;
+    @apply inline-flex items-center justify-center rounded-full bg-mint text-night font-bold px-5 py-3 transition hover:brightness-105 active:brightness-95 disabled:opacity-50 disabled:pointer-events-none;
   }
 
   .btn-ghost {
-    @apply inline-flex items-center justify-center rounded-full border border-ink/[0.15] text-ink font-medium px-5 py-3 transition-colors hover:bg-black/[0.03] disabled:opacity-50 disabled:pointer-events-none;
+    @apply inline-flex items-center justify-center rounded-full border border-white/[0.15] text-cream font-medium px-5 py-3 transition-colors hover:bg-white/5 disabled:opacity-50 disabled:pointer-events-none;
   }
 
   .input-field {
-    @apply w-full rounded-xl2 border border-ink/[0.12] bg-white px-4 py-3 text-ink placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-clay-300 focus:border-clay-500;
+    @apply w-full rounded-xl2 border border-white/[0.12] bg-night-100 px-4 py-3 text-cream placeholder:text-cream-soft/70 focus:outline-none focus:ring-2 focus:ring-clay-300/40 focus:border-clay-300;
   }
 
   .label-caps {
-    @apply text-xs font-semibold uppercase tracking-[0.14em] text-ink-muted;
+    @apply text-xs font-semibold uppercase tracking-[0.14em] text-cream-soft;
   }
 }

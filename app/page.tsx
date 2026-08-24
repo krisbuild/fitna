@@ -2,21 +2,12 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Viewport } from "next";
 import { IconArrowRight, IconBook, IconChat, IconLeaf } from "@/components/icons";
-import { Season, SEASONS } from "@/lib/types";
+import { SEASONS } from "@/lib/types";
 
 export const viewport: Viewport = {
   themeColor: "#110C09",
   width: "device-width",
   initialScale: 1,
-};
-
-// Brightened, dark-background-safe variants of the Season colors — the
-// shared SEASONS palette in lib/types.ts is tuned for the light app UI.
-const SEASON_DARK: Record<Season, string> = {
-  lean: "#FF7A55",
-  build: "#FFC65C",
-  balance: "#5FCB8C",
-  forge: "#FF9466",
 };
 
 export default function LandingPage() {
@@ -35,7 +26,7 @@ export default function LandingPage() {
           </Link>
           <Link
             href="/dashboard"
-            className="inline-flex items-center justify-center rounded-full border border-white/15 text-cream text-sm font-semibold px-4 py-2.5 hover:bg-white/5 transition-colors"
+            className="inline-flex items-center justify-center rounded-full border border-white/[0.15] text-cream text-sm font-semibold px-4 py-2.5 hover:bg-white/5 transition-colors"
           >
             open zuri
           </Link>
@@ -92,7 +83,7 @@ export default function LandingPage() {
               </Link>
               <Link
                 href="#seasons"
-                className="inline-flex items-center justify-center rounded-full border border-white/15 text-cream font-semibold px-6 py-3.5 text-base hover:bg-white/5 transition-colors"
+                className="inline-flex items-center justify-center rounded-full border border-white/[0.15] text-cream font-semibold px-6 py-3.5 text-base hover:bg-white/5 transition-colors"
               >
                 see how it works
               </Link>
@@ -114,10 +105,11 @@ export default function LandingPage() {
                 alt="Egusi, pounded yam, jollof rice, grilled chicken and fried plantain"
                 fill
                 priority
+                quality={100}
                 sizes="(min-width: 1024px) 28rem, 90vw"
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-night/70 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-night/40 via-transparent to-transparent" />
             </div>
 
             <div className="absolute -bottom-8 -left-6 w-56 rounded-2xl bg-night-200/80 backdrop-blur-md border border-white/10 p-4 shadow-2xl">
@@ -164,11 +156,11 @@ export default function LandingPage() {
         </p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {Object.values(SEASONS).map((s) => {
-            const color = SEASON_DARK[s.id];
+            const color = s.color;
             return (
               <div
                 key={s.id}
-                className="rounded-2xl bg-night-200 border border-white/8 p-5"
+                className="rounded-2xl bg-night-200 border border-white/[0.08] p-5"
                 style={{ boxShadow: `0 0 0 1px rgba(255,255,255,0.03) inset` }}
               >
                 <span
@@ -192,8 +184,8 @@ export default function LandingPage() {
 
       <section className="max-w-6xl mx-auto px-6 pb-28">
         <div className="grid sm:grid-cols-3 gap-4">
-          <div className="rounded-2xl bg-night-200 border border-white/8 p-6">
-            <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#5FCB8C]/15 mb-4">
+          <div className="rounded-2xl bg-night-200 border border-white/[0.08] p-6">
+            <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#5FCB8C]/[0.15] mb-4">
               <IconLeaf className="h-5 w-5" style={{ color: "#5FCB8C" }} />
             </span>
             <h3 className="font-display text-lg font-bold text-cream">
@@ -204,8 +196,8 @@ export default function LandingPage() {
               matched to your targets. you just eat.
             </p>
           </div>
-          <div className="rounded-2xl bg-night-200 border border-white/8 p-6">
-            <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#E27A4C]/15 mb-4">
+          <div className="rounded-2xl bg-night-200 border border-white/[0.08] p-6">
+            <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#E27A4C]/[0.15] mb-4">
               <IconBook className="h-5 w-5" style={{ color: "#E27A4C" }} />
             </span>
             <h3 className="font-display text-lg font-bold text-cream">
@@ -217,8 +209,8 @@ export default function LandingPage() {
               guessed.
             </p>
           </div>
-          <div className="rounded-2xl bg-night-200 border border-white/8 p-6">
-            <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-pop/15 mb-4">
+          <div className="rounded-2xl bg-night-200 border border-white/[0.08] p-6">
+            <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-pop/[0.15] mb-4">
               <IconChat className="h-5 w-5 text-pop" />
             </span>
             <h3 className="font-display text-lg font-bold text-cream">
@@ -232,7 +224,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <footer className="border-t border-white/8">
+      <footer className="border-t border-white/[0.08]">
         <div className="max-w-6xl mx-auto px-6 py-8 flex items-center justify-between text-sm text-cream-soft">
           <span className="font-semibold text-cream">
             zuri — eat good, feel better.

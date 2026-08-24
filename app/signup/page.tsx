@@ -34,17 +34,17 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-sand-100 flex items-center justify-center px-6">
+    <div className="min-h-screen bg-night flex items-center justify-center px-6">
       <div className="max-w-sm w-full">
-        <span className="font-display text-2xl font-semibold text-forest-600">
+        <span className="font-display text-2xl font-semibold text-cream">
           Zuri
         </span>
-        <h1 className="font-display text-2xl font-semibold text-ink mt-6">
+        <h1 className="font-display text-2xl font-semibold text-cream mt-6">
           Create your account
         </h1>
 
         {checkEmail ? (
-          <p className="text-ink-soft mt-6">
+          <p className="text-cream-soft mt-6">
             Check your inbox at <strong>{email}</strong> to confirm your
             account, then sign in.
           </p>
@@ -67,16 +67,16 @@ export default function SignupPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            {error && <p className="text-sm text-clay-600">{error}</p>}
+            {error && <p className="text-sm text-clay-300">{error}</p>}
             <button className="btn-primary w-full" disabled={loading}>
               {loading ? "Creating account…" : "Create account"}
             </button>
           </form>
         )}
 
-        <p className="text-sm text-ink-muted mt-6">
+        <p className="text-sm text-cream-soft mt-6">
           Already have an account?{" "}
-          <Link href="/login" className="text-clay-600 font-medium">
+          <Link href="/login" className="text-clay-300 font-medium">
             Sign in
           </Link>
         </p>

@@ -40,10 +40,10 @@ export default function KitchenPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-display text-2xl sm:text-3xl font-semibold text-ink">
+        <h1 className="font-display text-2xl sm:text-3xl font-semibold text-cream">
           The Kitchen
         </h1>
-        <p className="text-ink-soft text-sm mt-1">
+        <p className="text-cream-soft text-sm mt-1">
           A Nigerian cookbook, built for whichever Season you're in — same
           food, better versions.
         </p>
@@ -57,8 +57,8 @@ export default function KitchenPage() {
             className={clsx(
               "shrink-0 rounded-full px-4 py-2 text-sm font-medium border transition-colors",
               filter === f.id
-                ? "bg-ink text-sand-50 border-ink"
-                : "border-ink/[0.15] text-ink-soft"
+                ? "bg-cream text-night border-cream"
+                : "border-white/[0.15] text-cream-soft"
             )}
           >
             {f.label}
@@ -77,7 +77,7 @@ export default function KitchenPage() {
             <div className="flex items-start justify-between gap-3">
               <div>
                 <span className="text-2xl">{r.emoji}</span>
-                <h3 className="font-display text-lg font-semibold text-ink mt-2">
+                <h3 className="font-display text-lg font-semibold text-cream mt-2">
                   {r.title}
                 </h3>
               </div>
@@ -96,10 +96,10 @@ export default function KitchenPage() {
                 ))}
               </div>
             </div>
-            <p className="text-sm text-ink-soft mt-2 leading-relaxed line-clamp-2">
+            <p className="text-sm text-cream-soft mt-2 leading-relaxed line-clamp-2">
               {r.description}
             </p>
-            <div className="flex items-center gap-4 mt-4 text-xs text-ink-muted">
+            <div className="flex items-center gap-4 mt-4 text-xs text-cream-soft">
               <span className="flex items-center gap-1">
                 <IconClock className="h-3.5 w-3.5" />
                 {r.prepMinutes + r.cookMinutes} min

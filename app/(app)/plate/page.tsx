@@ -64,7 +64,7 @@ export default function PlateHistoryPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="font-display text-2xl sm:text-3xl font-semibold text-ink">
+        <h1 className="font-display text-2xl sm:text-3xl font-semibold text-cream">
           Your Plate
         </h1>
         <Link href="/plate/log" className="btn-primary !py-2 !px-4 text-sm">
@@ -76,20 +76,20 @@ export default function PlateHistoryPage() {
       <div className="flex items-center justify-between card px-4 py-3">
         <button
           onClick={() => shiftDate(-1)}
-          className="text-ink-soft px-2 py-1 hover:text-ink"
+          className="text-cream-soft px-2 py-1 hover:text-cream"
           aria-label="Previous day"
         >
           ←
         </button>
         <div className="text-center">
-          <p className="font-medium text-ink">{formatLabel(date)}</p>
-          <p className="text-xs text-ink-muted">
+          <p className="font-medium text-cream">{formatLabel(date)}</p>
+          <p className="text-xs text-cream-soft">
             {Math.round(totalCalories)} kcal logged
           </p>
         </div>
         <button
           onClick={() => shiftDate(1)}
-          className="text-ink-soft px-2 py-1 hover:text-ink"
+          className="text-cream-soft px-2 py-1 hover:text-cream"
           aria-label="Next day"
           disabled={date >= toDateString(new Date())}
         >
@@ -98,7 +98,7 @@ export default function PlateHistoryPage() {
       </div>
 
       {logs.length === 0 ? (
-        <div className="card p-8 text-center text-ink-muted text-sm">
+        <div className="card p-8 text-center text-cream-soft text-sm">
           No entries logged for this day.
         </div>
       ) : (
@@ -107,7 +107,7 @@ export default function PlateHistoryPage() {
             (mealType) => (
               <div key={mealType}>
                 <p className="label-caps mb-2">{MEAL_LABELS[mealType]}</p>
-                <div className="card divide-y divide-black/[0.05]">
+                <div className="card divide-y divide-white/[0.08]">
                   {logs
                     .filter((l) => l.mealType === mealType)
                     .map((l) => (
@@ -116,17 +116,17 @@ export default function PlateHistoryPage() {
                         className="flex items-center justify-between px-4 py-3.5"
                       >
                         <div>
-                          <p className="font-medium text-ink text-sm">
+                          <p className="font-medium text-cream text-sm">
                             {l.name}
                           </p>
-                          <p className="text-xs text-ink-muted">
+                          <p className="text-xs text-cream-soft">
                             {l.quantity}× {l.servingLabel} ·{" "}
                             {Math.round(l.calories)} kcal
                           </p>
                         </div>
                         <button
                           onClick={() => removeLog(l.id)}
-                          className="text-ink-muted hover:text-clay-600 p-2 -mr-2"
+                          className="text-cream-soft hover:text-clay-300 p-2 -mr-2"
                           aria-label="Remove entry"
                         >
                           <IconTrash className="h-4 w-4" />

@@ -146,9 +146,9 @@ export default function OnboardingPage() {
       : true;
 
   return (
-    <div className="min-h-screen bg-sand-100 flex flex-col">
+    <div className="min-h-screen bg-night flex flex-col">
       <div className="max-w-xl w-full mx-auto px-6 pt-10 pb-24 flex-1">
-        <span className="font-display text-xl font-semibold text-forest-600">
+        <span className="font-display text-xl font-semibold text-cream">
           Zuri
         </span>
 
@@ -158,7 +158,7 @@ export default function OnboardingPage() {
               <div
                 className={clsx(
                   "h-1.5 rounded-full",
-                  i <= step ? "bg-clay-500" : "bg-black/[0.08]"
+                  i <= step ? "bg-clay-500" : "bg-white/10"
                 )}
               />
             </div>
@@ -167,10 +167,10 @@ export default function OnboardingPage() {
 
         {step === 0 && (
           <div className="space-y-5">
-            <h1 className="font-display text-2xl font-semibold text-ink">
+            <h1 className="font-display text-2xl font-semibold text-cream">
               Let's set your table
             </h1>
-            <p className="text-ink-soft text-sm">
+            <p className="text-cream-soft text-sm">
               A few details so your targets are actually built for your
               body, not a generic average. Takes about a minute.
             </p>
@@ -196,8 +196,8 @@ export default function OnboardingPage() {
                     className={clsx(
                       "rounded-xl2 border px-4 py-3 text-sm font-medium capitalize transition-colors",
                       sex === s
-                        ? "border-clay-500 bg-clay-50 text-clay-700"
-                        : "border-ink/[0.12] text-ink-soft"
+                        ? "border-clay-500 bg-clay-500/[0.15] text-clay-100"
+                        : "border-white/[0.12] text-cream-soft"
                     )}
                   >
                     {s}
@@ -240,10 +240,10 @@ export default function OnboardingPage() {
 
         {step === 1 && (
           <div className="space-y-5">
-            <h1 className="font-display text-2xl font-semibold text-ink">
+            <h1 className="font-display text-2xl font-semibold text-cream">
               How active is your day?
             </h1>
-            <p className="text-ink-soft text-sm">
+            <p className="text-cream-soft text-sm">
               Be honest, not aspirational — this decides your Fuel Target.
             </p>
             <div className="space-y-2.5">
@@ -255,8 +255,8 @@ export default function OnboardingPage() {
                   className={clsx(
                     "w-full text-left rounded-xl2 border px-4 py-3.5 text-sm transition-colors",
                     activityLevel === lvl
-                      ? "border-clay-500 bg-clay-50"
-                      : "border-ink/[0.12]"
+                      ? "border-clay-500 bg-clay-500/[0.15]"
+                      : "border-white/[0.12]"
                   )}
                 >
                   {ACTIVITY_LABELS[lvl]}
@@ -277,8 +277,8 @@ export default function OnboardingPage() {
                     className={clsx(
                       "rounded-xl2 border px-4 py-3 text-sm font-medium transition-colors",
                       worksOut === val
-                        ? "border-clay-500 bg-clay-50 text-clay-700"
-                        : "border-ink/[0.12] text-ink-soft"
+                        ? "border-clay-500 bg-clay-500/[0.15] text-clay-100"
+                        : "border-white/[0.12] text-cream-soft"
                     )}
                   >
                     {val ? "Yes, I train" : "Not right now"}
@@ -321,10 +321,10 @@ export default function OnboardingPage() {
 
         {step === 2 && (
           <div className="space-y-5">
-            <h1 className="font-display text-2xl font-semibold text-ink">
+            <h1 className="font-display text-2xl font-semibold text-cream">
               Which Season are you in?
             </h1>
-            <p className="text-ink-soft text-sm">
+            <p className="text-cream-soft text-sm">
               You can switch Seasons any time from Settings as your goal
               changes.
             </p>
@@ -336,7 +336,7 @@ export default function OnboardingPage() {
                   onClick={() => setSeason(s.id)}
                   className={clsx(
                     "w-full text-left rounded-xl2 border px-4 py-4 transition-colors",
-                    season === s.id ? "border-2" : "border-ink/[0.12]"
+                    season === s.id ? "border-2" : "border-white/[0.12]"
                   )}
                   style={
                     season === s.id
@@ -345,7 +345,7 @@ export default function OnboardingPage() {
                   }
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-display font-semibold text-ink">
+                    <span className="font-display font-semibold text-cream">
                       {s.name}
                     </span>
                     {season === s.id && (
@@ -355,7 +355,7 @@ export default function OnboardingPage() {
                       />
                     )}
                   </div>
-                  <p className="text-sm text-ink-soft mt-1">{s.description}</p>
+                  <p className="text-sm text-cream-soft mt-1">{s.description}</p>
                 </button>
               ))}
             </div>
@@ -384,10 +384,10 @@ export default function OnboardingPage() {
         {step === 3 && (
           <div className="space-y-6">
             <div>
-              <h1 className="font-display text-2xl font-semibold text-ink">
+              <h1 className="font-display text-2xl font-semibold text-cream">
                 What do you eat?
               </h1>
-              <p className="text-ink-soft text-sm mt-1">
+              <p className="text-cream-soft text-sm mt-1">
                 Optional, but it helps your Meal Scripts feel like your food,
                 not a stranger's. Tap what applies — no typing required.
               </p>
@@ -404,8 +404,8 @@ export default function OnboardingPage() {
                     className={clsx(
                       "rounded-full border px-3.5 py-2 text-sm font-medium transition-colors",
                       dietPattern === d.id
-                        ? "border-clay-500 bg-clay-50 text-clay-700"
-                        : "border-ink/[0.15] text-ink-soft"
+                        ? "border-clay-500 bg-clay-500/[0.15] text-clay-100"
+                        : "border-white/[0.15] text-cream-soft"
                     )}
                   >
                     {d.label}
@@ -427,8 +427,8 @@ export default function OnboardingPage() {
                     className={clsx(
                       "rounded-full border px-3.5 py-2 text-sm font-medium transition-colors",
                       favoriteFoodIds.includes(f.id)
-                        ? "border-forest-500 bg-forest-50 text-forest-700"
-                        : "border-ink/[0.15] text-ink-soft"
+                        ? "border-mint bg-mint/[0.15] text-mint"
+                        : "border-white/[0.15] text-cream-soft"
                     )}
                   >
                     {f.name}
@@ -470,7 +470,7 @@ export default function OnboardingPage() {
                       key={v}
                       type="button"
                       onClick={() => removeExclusion(v)}
-                      className="rounded-full bg-clay-50 text-clay-700 px-3 py-1.5 text-xs font-medium"
+                      className="rounded-full bg-clay-500/[0.15] text-clay-100 px-3 py-1.5 text-xs font-medium"
                     >
                       {v} ✕
                     </button>
@@ -484,10 +484,10 @@ export default function OnboardingPage() {
         {step === 4 && (
           <div className="space-y-6">
             <div>
-              <h1 className="font-display text-2xl font-semibold text-ink">
+              <h1 className="font-display text-2xl font-semibold text-cream">
                 What's your feeding budget like?
               </h1>
-              <p className="text-ink-soft text-sm mt-1">
+              <p className="text-cream-soft text-sm mt-1">
                 This just shapes how Zuri suggests meals — practical picks
                 versus more variety. Optional.
               </p>
@@ -502,12 +502,12 @@ export default function OnboardingPage() {
                   className={clsx(
                     "w-full text-left rounded-xl2 border px-4 py-3.5 transition-colors",
                     budgetStyle === b.id
-                      ? "border-clay-500 bg-clay-50"
-                      : "border-ink/[0.12]"
+                      ? "border-clay-500 bg-clay-500/[0.15]"
+                      : "border-white/[0.12]"
                   )}
                 >
-                  <p className="font-medium text-ink text-sm">{b.label}</p>
-                  <p className="text-xs text-ink-soft mt-0.5">
+                  <p className="font-medium text-cream text-sm">{b.label}</p>
+                  <p className="text-xs text-cream-soft mt-0.5">
                     {b.description}
                   </p>
                 </button>
@@ -535,32 +535,32 @@ export default function OnboardingPage() {
 
         {step === 5 && (
           <div className="space-y-5">
-            <h1 className="font-display text-2xl font-semibold text-ink">
+            <h1 className="font-display text-2xl font-semibold text-cream">
               Your starting point
             </h1>
-            <p className="text-ink-soft text-sm">
+            <p className="text-cream-soft text-sm">
               Built from your numbers for {SEASONS[season].name}. You can
               fine-tune anything anytime from Settings.
             </p>
             <div className="card p-6 space-y-4">
               <div className="flex items-baseline justify-between">
-                <span className="text-ink-soft">Fuel Target</span>
-                <span className="font-display text-3xl font-semibold text-ink">
+                <span className="text-cream-soft">Fuel Target</span>
+                <span className="font-display text-3xl font-semibold text-cream">
                   {targets.fuelTarget}
-                  <span className="text-base font-sans text-ink-muted"> kcal</span>
+                  <span className="text-base font-sans text-cream-soft"> kcal</span>
                 </span>
               </div>
-              <div className="grid grid-cols-3 gap-4 pt-2 border-t border-black/[0.06]">
+              <div className="grid grid-cols-3 gap-4 pt-2 border-t border-white/[0.08]">
                 <div>
-                  <div className="text-xs text-ink-muted">Protein</div>
+                  <div className="text-xs text-cream-soft">Protein</div>
                   <div className="font-semibold">{targets.proteinTargetG}g</div>
                 </div>
                 <div>
-                  <div className="text-xs text-ink-muted">Carbs</div>
+                  <div className="text-xs text-cream-soft">Carbs</div>
                   <div className="font-semibold">{targets.carbsTargetG}g</div>
                 </div>
                 <div>
-                  <div className="text-xs text-ink-muted">Fat</div>
+                  <div className="text-xs text-cream-soft">Fat</div>
                   <div className="font-semibold">{targets.fatTargetG}g</div>
                 </div>
               </div>
@@ -569,9 +569,9 @@ export default function OnboardingPage() {
             <div className="card p-6 flex items-center justify-between">
               <div>
                 <p className="label-caps mb-1">Body Mass Index</p>
-                <p className="text-xs text-ink-soft">{bmiCategory(bmi)}</p>
+                <p className="text-xs text-cream-soft">{bmiCategory(bmi)}</p>
               </div>
-              <span className="font-display text-2xl font-semibold text-ink">
+              <span className="font-display text-2xl font-semibold text-cream">
                 {bmi.toFixed(1)}
               </span>
             </div>
@@ -590,7 +590,7 @@ export default function OnboardingPage() {
           )}
           {(step === 3 || step === 4) && (
             <button
-              className="text-sm text-ink-muted font-medium"
+              className="text-sm text-cream-soft font-medium"
               onClick={() => setStep((s) => s + 1)}
               disabled={saving}
             >
