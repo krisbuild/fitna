@@ -40,6 +40,13 @@ const config: Config = {
           500: "#BE8825",
           600: "#946A1C",
         },
+        // A vivid, youthful accent used sparingly for stickers/badges/highlights —
+        // keeps the brand palette warm/earthy while adding Gen-Z pop.
+        pop: {
+          DEFAULT: "#C7E24C",
+          soft: "#EAF6B8",
+          ink: "#38430E",
+        },
         // Season system colors
         season: {
           lean: "#A8432B",
@@ -51,7 +58,7 @@ const config: Config = {
         },
       },
       fontFamily: {
-        display: ["var(--font-fraunces)", "ui-serif", "Georgia", "serif"],
+        display: ["var(--font-display)", "ui-sans-serif", "system-ui", "sans-serif"],
         sans: ["var(--font-inter)", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       borderRadius: {

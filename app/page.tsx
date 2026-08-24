@@ -4,58 +4,109 @@ import { SEASONS } from "@/lib/types";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-sand-100">
-      <header className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-        <span className="font-display text-2xl font-semibold tracking-tight text-forest-600">
-          Zuri
+    <div className="min-h-screen bg-sand-100 overflow-x-clip">
+      <header className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between relative z-10">
+        <span className="font-display text-2xl font-extrabold tracking-tight text-forest-600">
+          zuri
         </span>
-        <Link href="/dashboard" className="btn-ghost !py-2.5 !px-4 text-sm">
-          Open Zuri
+        <Link
+          href="/dashboard"
+          className="btn-ghost !py-2.5 !px-4 text-sm !font-semibold"
+        >
+          open zuri
         </Link>
       </header>
 
-      <section className="max-w-6xl mx-auto px-6 pt-10 pb-20 sm:pt-16 sm:pb-28">
-        <div className="max-w-2xl">
-          <span className="label-caps text-clay-600">
-            Nutrition &amp; fitness, built for how Africa eats
+      <section className="relative max-w-6xl mx-auto px-6 pt-8 pb-20 sm:pt-14 sm:pb-28">
+        <div
+          aria-hidden
+          className="absolute -top-24 -right-24 h-72 w-72 sm:h-96 sm:w-96 rounded-full opacity-40 blur-3xl"
+          style={{
+            background:
+              "radial-gradient(circle at 30% 30%, #C7E24C, transparent 70%)",
+          }}
+        />
+        <div
+          aria-hidden
+          className="absolute top-40 -left-20 h-56 w-56 rounded-full opacity-30 blur-3xl"
+          style={{
+            background:
+              "radial-gradient(circle at 50% 50%, #C1502E, transparent 70%)",
+          }}
+        />
+
+        <div className="relative max-w-2xl">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-pop text-pop-ink text-xs font-bold px-3.5 py-1.5 -rotate-2">
+            🍲 your ai food bestie
           </span>
-          <h1 className="font-display text-4xl sm:text-6xl leading-[1.05] font-semibold text-ink mt-4">
-            Your food. Your goals.
+
+          <h1 className="font-display text-4xl sm:text-6xl leading-[1.02] font-extrabold text-ink mt-5 tracking-tight">
+            Eat good,
             <br />
-            <span className="italic text-clay-500">One Season at a time.</span>
+            Feel better.
           </h1>
-          <p className="mt-6 text-lg text-ink-soft leading-relaxed">
-            Zuri is an AI nutrition coach and Nigerian healthy cookbook in
-            one — it learns whether you're in a Lean, Build, or Balance
-            Season and reshapes your meal ideas, targets, and coaching
-            around it. No foreign food database. No guesswork with jollof
-            portions.
+
+          <p className="mt-5 text-xl sm:text-2xl font-semibold text-ink leading-snug">
+            your AI food bestie that figures out what to eat, tracks it, and
+            keeps you on track.
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-4">
-            <Link href="/onboarding" className="btn-primary text-base">
-              Start your Season
+
+          <p className="mt-4 text-base sm:text-lg text-ink-soft leading-relaxed">
+            stop overthinking food, we will figure out the meals. you enjoy
+            them.
+          </p>
+
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <Link href="/onboarding" className="btn-primary text-base !font-bold">
+              let's eat
               <IconArrowRight className="h-4 w-4 ml-2" />
             </Link>
-            <Link href="#seasons" className="btn-ghost text-base">
-              See how Seasons work
+            <Link href="#seasons" className="btn-ghost text-base !font-semibold">
+              see how it works
             </Link>
+          </div>
+        </div>
+
+        <div className="relative mt-14 max-w-sm">
+          <div className="card p-4 space-y-2.5 -rotate-1 shadow-lift">
+            <div className="flex justify-end">
+              <div className="max-w-[80%] rounded-2xl rounded-br-sm bg-forest-600 text-sand-50 px-4 py-2.5 text-sm">
+                wetin I go chop today? 👀
+              </div>
+            </div>
+            <div className="flex justify-start">
+              <div className="max-w-[85%] rounded-2xl rounded-bl-sm bg-sand-100 px-4 py-2.5 text-sm text-ink">
+                jollof + grilled chicken, ~550kcal. logged and on budget. i
+                got you 🙌
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       <section id="seasons" className="max-w-6xl mx-auto px-6 pb-24 scroll-mt-20">
-        <h2 className="label-caps text-ink-muted mb-6">Pick your Season</h2>
-        <div className="grid sm:grid-cols-3 gap-5">
-          {Object.values(SEASONS).map((s) => (
-            <div key={s.id} className="card p-6">
+        <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-ink mb-2">
+          pick your season
+        </h2>
+        <p className="text-ink-soft mb-6">
+          losing weight, gaining, staying steady, or building muscle — zuri
+          shifts to match.
+        </p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {Object.values(SEASONS).map((s, i) => (
+            <div
+              key={s.id}
+              className="card p-5"
+              style={{ transform: i % 2 === 0 ? "rotate(-0.5deg)" : "rotate(0.5deg)" }}
+            >
               <span
                 className="inline-block h-2.5 w-2.5 rounded-full mb-4"
                 style={{ backgroundColor: s.color }}
               />
-              <h3 className="font-display text-xl font-semibold text-ink">
+              <h3 className="font-display text-lg font-bold text-ink">
                 {s.name}
               </h3>
-              <p className="text-sm text-clay-600 font-medium mt-1">
+              <p className="text-sm font-semibold mt-1" style={{ color: s.color }}>
                 {s.tagline}
               </p>
               <p className="text-sm text-ink-soft mt-3 leading-relaxed">
@@ -67,38 +118,36 @@ export default function LandingPage() {
       </section>
 
       <section className="max-w-6xl mx-auto px-6 pb-28">
-        <div className="grid sm:grid-cols-3 gap-5">
+        <div className="grid sm:grid-cols-3 gap-4">
           <div className="card p-6">
             <IconLeaf className="h-6 w-6 text-forest-500 mb-4" />
-            <h3 className="font-display text-lg font-semibold">
-              Meal Scripts
+            <h3 className="font-display text-lg font-bold">
+              no more "what do I eat" spirals
             </h3>
             <p className="text-sm text-ink-soft mt-2 leading-relaxed">
-              Auto-generated daily meal ideas built from your Season, your
-              targets, and real Nigerian dishes — not a generic 1200-calorie
-              template.
+              your Meal Script shows up already built — real Nigerian food,
+              matched to your targets. you just eat.
             </p>
           </div>
           <div className="card p-6">
             <IconBook className="h-6 w-6 text-clay-500 mb-4" />
-            <h3 className="font-display text-lg font-semibold">
-              The Kitchen
+            <h3 className="font-display text-lg font-bold">
+              your favs, glowed up
             </h3>
             <p className="text-sm text-ink-soft mt-2 leading-relaxed">
-              A growing cookbook of healthier takes on the food you already
-              love — grilled instead of fried, portioned instead of
-              guessed, still unmistakably home.
+              The Kitchen turns the food you already love into versions that
+              actually fit your goal — grilled not fried, portioned not
+              guessed.
             </p>
           </div>
           <div className="card p-6">
             <IconChat className="h-6 w-6 text-gold-500 mb-4" />
-            <h3 className="font-display text-lg font-semibold">
-              Your Coach
+            <h3 className="font-display text-lg font-bold">
+              a coach that texts back
             </h3>
             <p className="text-sm text-ink-soft mt-2 leading-relaxed">
-              Ask anything — from "is amala okay in a Lean Season" to
-              "what should I eat before a workout" — and get answers built
-              for your goal and your food culture.
+              ask anything — "is amala okay rn?", "what should I eat before
+              the gym?" — and get real answers, not vague vibes.
             </p>
           </div>
         </div>
@@ -106,8 +155,8 @@ export default function LandingPage() {
 
       <footer className="border-t border-black/[0.06]">
         <div className="max-w-6xl mx-auto px-6 py-8 flex items-center justify-between text-sm text-ink-muted">
-          <span>Zuri — eat well, build well, live well.</span>
-          <span>Made for Nigeria &amp; Africa, built to travel.</span>
+          <span className="font-semibold">zuri — eat good, feel better.</span>
+          <span>made for naija &amp; africa, built to travel.</span>
         </div>
       </footer>
     </div>

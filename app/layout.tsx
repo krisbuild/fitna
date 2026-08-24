@@ -1,25 +1,24 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Bricolage_Grotesque, Inter } from "next/font/google";
 import "./globals.css";
 import { ZuriProvider } from "@/lib/data/context";
 
-const fraunces = Fraunces({
+const display = Bricolage_Grotesque({
   subsets: ["latin"],
-  variable: "--font-fraunces",
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
+  variable: "--font-display",
+  weight: ["500", "600", "700", "800"],
 });
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
-  title: "Zuri — Eat well. Build well. Live well.",
+  title: "Zuri — Eat good, feel better.",
   description:
-    "Zuri is an AI nutrition coach and Nigerian healthy cookbook that adapts to your Season — Lean, Build, or Balance — with meal scripts made for the way you actually eat.",
+    "Zuri is your AI food bestie — it figures out what to eat, tracks it, and keeps you on track. Built first for Nigerians and Africans.",
   manifest: "/manifest.json",
 };
 
@@ -35,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
+    <html lang="en" className={`${display.variable} ${inter.variable}`}>
       <body className="font-sans antialiased">
         <ZuriProvider>{children}</ZuriProvider>
       </body>
