@@ -41,11 +41,26 @@ const config: Config = {
           600: "#946A1C",
         },
         // A vivid, youthful accent used sparingly for stickers/badges/highlights —
-        // keeps the brand palette warm/earthy while adding Gen-Z pop.
+        // keeps the brand palette warm/earthy while adding Gen-Z pop. Doubles as
+        // the primary interactive accent on the dark theme (Spotify-green role,
+        // own hue).
         pop: {
           DEFAULT: "#C7E24C",
           soft: "#EAF6B8",
           ink: "#38430E",
+        },
+        // Dark, warm-black surface scale for the dark theme (landing, and later
+        // the rest of the app) — never a cold/neutral black.
+        night: {
+          DEFAULT: "#110C09",
+          100: "#170F0A",
+          200: "#1F150E",
+          300: "#2A1D13",
+          400: "#3A2A1B",
+        },
+        cream: {
+          DEFAULT: "#F6EFE4",
+          soft: "#BBA997",
         },
         // Season system colors
         season: {
