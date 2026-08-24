@@ -9,10 +9,9 @@ import { IconClock } from "@/components/icons";
 
 const FILTERS: { id: Season | "all"; label: string }[] = [
   { id: "all", label: "All" },
-  { id: "lean", label: "Lean" },
+  { id: "shred", label: "Shred" },
   { id: "build", label: "Build" },
-  { id: "balance", label: "Balance" },
-  { id: "forge", label: "Forge" },
+  { id: "glow", label: "Glow" },
 ];
 
 export default function KitchenPage() {
@@ -45,7 +44,7 @@ export default function KitchenPage() {
           The Kitchen
         </h1>
         <p className="text-cream-soft text-sm mt-1">
-          A Nigerian cookbook, built for whichever Season you're in — same
+          A Nigerian cookbook, built for whichever Mode you're in — same
           food, better versions.
         </p>
       </div>
@@ -75,7 +74,7 @@ export default function KitchenPage() {
             recipes yet
           </p>
           <p className="text-cream-soft text-sm mt-1">
-            We're still cooking up recipes for this Season — check back
+            We're still cooking up recipes for this Mode — check back
             soon, or browse everything below.
           </p>
           <button
@@ -111,7 +110,7 @@ export default function KitchenPage() {
                       color: SEASONS[s].color,
                     }}
                   >
-                    {SEASONS[s].name.replace(" Season", "")}
+                    {SEASONS[s].name.replace(" Mode", "")}
                   </span>
                 ))}
               </div>

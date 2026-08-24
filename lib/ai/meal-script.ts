@@ -1,6 +1,6 @@
 import { FOODS } from "@/data/foods";
 import { RECIPES } from "@/data/recipes";
-import { MealScriptItem, Season } from "@/lib/types";
+import { MealScriptItem, Season, SEASONS } from "@/lib/types";
 
 export interface MealScriptRequest {
   name: string;
@@ -12,17 +12,15 @@ export interface MealScriptRequest {
 }
 
 const BREAKFAST_BY_SEASON: Record<Season, string> = {
-  lean: "pap",
-  build: "bread-egg",
-  balance: "oatmeal",
-  forge: "boiled-eggs",
+  shred: "pap",
+  build: "boiled-eggs",
+  glow: "oatmeal",
 };
 
 const SNACK_BY_SEASON: Record<Season, string> = {
-  lean: "watermelon",
+  shred: "watermelon",
   build: "groundnuts",
-  balance: "banana",
-  forge: "groundnuts",
+  glow: "banana",
 };
 
 export function generateRuleBasedMealScript(
@@ -36,7 +34,7 @@ export function generateRuleBasedMealScript(
     items.push({
       mealType: "breakfast",
       title: breakfast.name,
-      description: `${breakfast.servingLabel}, a straightforward start for ${season} season.`,
+      description: `${breakfast.servingLabel}, a straightforward start for ${SEASONS[season].name}.`,
       calories: breakfast.calories,
       proteinG: breakfast.proteinG,
       carbsG: breakfast.carbsG,
@@ -91,14 +89,13 @@ export function generateRuleBasedMealScript(
 }
 
 const SEASON_VOICE: Record<Season, string> = {
-  lean: "a gentle calorie deficit, high protein and high fibre to stay full",
-  build: "a calorie surplus with dense, protein-rich meals for quality mass gain",
-  balance: "steady maintenance eating with no extremes",
-  forge: "calories near maintenance with protein pushed high, for muscle growth",
+  shred: "a structured ~20% calorie deficit, protein held high (~2g/kg) for satiety and to protect lean mass",
+  build: "a moderate ~10% calorie surplus with a high protein target (~2.1g/kg) so gains are muscle, not just scale weight",
+  glow: "maintenance calories with balanced macros (~1.6g/kg protein), built for consistency, not restriction",
 };
 
 export function buildMealScriptSystemPrompt(): string {
-  return `You are the meal-planning engine inside Zuri, an AI nutrition coach app built first for Nigerians and Africans. You write a "Meal Script" — a one-day meal plan of real Nigerian/West African dishes (jollof rice, egusi, moi moi, suya, amala, beans, plantain, pepper soup, etc.) that fits the user's Season and daily targets.
+  return `You are the meal-planning engine inside Zuri, an AI nutrition coach app built first for Nigerians and Africans. You write a "Meal Script" — a one-day meal plan of real Nigerian/West African dishes (jollof rice, egusi, moi moi, suya, amala, beans, plantain, pepper soup, etc.) that fits the user's Mode and daily targets. Mode names are casual on the surface (Shred, Build, Glow) but the nutrition behind them should hold up to scrutiny from a qualified nutritionist — real deficit/surplus percentages, sound protein targets, no gimmicks.
 
 Rules:
 - Use authentic Nigerian/West African dishes and realistic home portions.
@@ -111,7 +108,7 @@ Rules:
 
 export function buildMealScriptUserPrompt(req: MealScriptRequest): string {
   return `User: ${req.name}
-Season: ${req.season} (${SEASON_VOICE[req.season]})
+Mode: ${SEASONS[req.season].name} (${SEASON_VOICE[req.season]})
 Fuel Target: ${req.fuelTarget} kcal
 Protein Target: ${req.proteinTargetG} g
 Carbs Target: ${req.carbsTargetG} g

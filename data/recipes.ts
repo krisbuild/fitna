@@ -7,7 +7,7 @@ export const RECIPES: Recipe[] = [
     title: "Grilled Suya Salad Bowl",
     description:
       "All the smoky yaji spice of street suya, grilled instead of fried, over a crisp Nigerian salad. High protein, light on oil.",
-    seasons: ["lean", "balance"],
+    seasons: ["shred", "glow"],
     region: "Nationwide",
     emoji: "🍢",
     prepMinutes: 15,
@@ -142,8 +142,8 @@ export const RECIPES: Recipe[] = [
     slug: "steamed-moi-moi-extra-egg",
     title: "Steamed Moi Moi with Extra Egg",
     description:
-      "The classic bean pudding, steamed (never fried), with an extra egg folded in for protein — a lean-season staple that actually fills you up.",
-    seasons: ["lean", "balance"],
+      "The classic bean pudding, steamed (never fried), with an extra egg folded in for protein — a Shred Mode staple that actually fills you up.",
+    seasons: ["shred", "glow"],
     region: "Nationwide",
     emoji: "🥚",
     prepMinutes: 20,
@@ -176,7 +176,7 @@ export const RECIPES: Recipe[] = [
     title: "Ofada-Style Cauliflower 'Rice'",
     description:
       "The bold, peppery ayamase stew you love, spooned over cauliflower rice instead of ofada rice — same punch, a fraction of the carbs.",
-    seasons: ["lean"],
+    seasons: ["shred"],
     region: "South West",
     emoji: "🥦",
     prepMinutes: 20,
@@ -208,7 +208,7 @@ export const RECIPES: Recipe[] = [
     title: "Everyday Efo Riro with Brown Rice",
     description:
       "A lighter, weekday version of efo riro — measured oil, extra vegetables, served over fibre-rich brown rice instead of a heavy swallow.",
-    seasons: ["balance"],
+    seasons: ["glow"],
     region: "South West",
     emoji: "🥬",
     prepMinutes: 15,
@@ -240,7 +240,7 @@ export const RECIPES: Recipe[] = [
     title: "Oven-Baked Akara",
     description:
       "Same bean-cake flavour as the roadside classic, baked instead of deep-fried — a lighter breakfast that still hits.",
-    seasons: ["lean", "balance"],
+    seasons: ["shred", "glow"],
     region: "Nationwide",
     emoji: "🫘",
     prepMinutes: 20,
@@ -270,7 +270,7 @@ export const RECIPES: Recipe[] = [
     title: "Classic Amala & Ewedu, Balanced Plate",
     description:
       "The everyday South-West classic, portioned for balance — a measured swallow serving alongside ewedu and gbegiri for fibre and protein.",
-    seasons: ["balance"],
+    seasons: ["glow"],
     region: "South West",
     emoji: "🍲",
     prepMinutes: 15,
@@ -301,7 +301,7 @@ export const RECIPES: Recipe[] = [
     title: "Zobo & Fruit Bowl",
     description:
       "Unsweetened hibiscus tea, naturally sweetened with pineapple and ginger, served alongside a fresh fruit bowl — a refreshing, low-calorie snack.",
-    seasons: ["lean", "balance"],
+    seasons: ["shred", "glow"],
     region: "Nationwide",
     emoji: "🍉",
     prepMinutes: 15,
@@ -362,7 +362,7 @@ export const RECIPES: Recipe[] = [
     title: "Pepper Soup, Light",
     description:
       "A lean-cut catfish or chicken pepper soup — brothy, fiery, and filling without the palm oil, great for a low-calorie dinner that still feels like a proper meal.",
-    seasons: ["lean"],
+    seasons: ["shred"],
     region: "Nationwide",
     emoji: "🌶️",
     prepMinutes: 10,

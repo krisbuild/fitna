@@ -114,7 +114,7 @@ export default function MealScriptPage() {
         <div className="card p-8 text-center space-y-4">
           <p className="text-cream-soft text-sm">
             No Meal Script yet for today. Generate one built around your
-            Season and targets.
+            Mode and targets.
           </p>
           <button
             className="btn-primary"

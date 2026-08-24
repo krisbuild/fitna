@@ -31,17 +31,15 @@ export function calculateTDEE(bmr: number, activityLevel: ActivityLevel): number
 }
 
 const SEASON_ADJUSTMENT: Record<Season, number> = {
-  lean: -0.2,
-  build: 0.15,
-  balance: 0,
-  forge: 0.05,
+  shred: -0.2,
+  build: 0.1,
+  glow: 0,
 };
 
 const PROTEIN_PER_KG: Record<Season, number> = {
-  lean: 2.0,
-  build: 1.9,
-  balance: 1.6,
-  forge: 2.2,
+  shred: 2.0,
+  build: 2.1,
+  glow: 1.6,
 };
 
 export interface FuelTargets {
@@ -63,7 +61,7 @@ export function calculateFuelTargets(
   const tdee = calculateTDEE(bmr, activityLevel);
   const fuelTarget = Math.round(tdee * (1 + SEASON_ADJUSTMENT[season]));
 
-  // Protein: highest in Forge (muscle growth), also elevated in Lean (satiety) and Build
+  // Protein: highest in Build (muscle growth), also elevated in Shred (satiety)
   const proteinTargetG = Math.round(PROTEIN_PER_KG[season] * weightKg);
   const proteinCalories = proteinTargetG * 4;
 

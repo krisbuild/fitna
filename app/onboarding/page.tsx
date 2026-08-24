@@ -27,7 +27,7 @@ import { IconArrowRight, IconCheck, IconPlus } from "@/components/icons";
 const STEPS = [
   "About you",
   "Activity",
-  "Your Season",
+  "Your Mode",
   "Food",
   "Budget",
   "Review",
@@ -64,7 +64,7 @@ export default function OnboardingPage() {
   const [activityLevel, setActivityLevel] = useState<ActivityLevel>("light");
   const [worksOut, setWorksOut] = useState(false);
   const [workoutDaysPerWeek, setWorkoutDaysPerWeek] = useState(3);
-  const [season, setSeason] = useState<Season>("balance");
+  const [season, setSeason] = useState<Season>("glow");
   const [targetWeightKg, setTargetWeightKg] = useState<number | "">("");
 
   const [dietPattern, setDietPattern] = useState<DietPattern>("none");
@@ -322,45 +322,63 @@ export default function OnboardingPage() {
         {step === 2 && (
           <div className="space-y-5">
             <h1 className="font-display text-2xl font-semibold text-cream">
-              Which Season are you in?
+              What's your Mode right now?
             </h1>
             <p className="text-cream-soft text-sm">
-              You can switch Seasons any time from Settings as your goal
-              changes.
+              You can switch Modes any time — no big commitment, just pick
+              what fits today.
             </p>
             <div className="space-y-3">
-              {Object.values(SEASONS).map((s) => (
-                <button
-                  key={s.id}
-                  type="button"
-                  onClick={() => setSeason(s.id)}
-                  className={clsx(
-                    "w-full text-left rounded-xl2 border px-4 py-4 transition-colors",
-                    season === s.id ? "border-2" : "border-white/[0.12]"
-                  )}
-                  style={
-                    season === s.id
-                      ? { borderColor: s.color, backgroundColor: `${s.color}0D` }
-                      : undefined
-                  }
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="font-display font-semibold text-cream">
-                      {s.name}
-                    </span>
-                    {season === s.id && (
-                      <IconCheck
-                        className="h-4 w-4"
-                        style={{ color: s.color }}
-                      />
+              {Object.values(SEASONS).map((s) => {
+                const selected = season === s.id;
+                return (
+                  <button
+                    key={s.id}
+                    type="button"
+                    onClick={() => setSeason(s.id)}
+                    className={clsx(
+                      "w-full text-left rounded-xl2 border px-4 py-4 transition-colors",
+                      selected ? "border-2" : "border-white/[0.12]"
                     )}
-                  </div>
-                  <p className="text-sm text-cream-soft mt-1">{s.description}</p>
-                </button>
-              ))}
+                    style={
+                      selected
+                        ? { borderColor: s.color, backgroundColor: `${s.color}0D` }
+                        : undefined
+                    }
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="text-3xl leading-none">{s.emoji}</span>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="font-display font-semibold text-cream">
+                            {s.name}
+                          </span>
+                          {selected && (
+                            <IconCheck
+                              className="h-4 w-4 shrink-0"
+                              style={{ color: s.color }}
+                            />
+                          )}
+                        </div>
+                        <p
+                          className="text-sm font-medium mt-0.5"
+                          style={{ color: s.color }}
+                        >
+                          {s.tagline}
+                        </p>
+                      </div>
+                    </div>
+                    {selected && (
+                      <p className="text-sm text-cream-soft mt-3 leading-relaxed">
+                        {s.description}
+                      </p>
+                    )}
+                  </button>
+                );
+              })}
             </div>
 
-            {season !== "balance" && (
+            {season !== "glow" && (
               <div>
                 <label className="label-caps block mb-2">
                   Target weight (kg) — optional
@@ -612,7 +630,7 @@ export default function OnboardingPage() {
               onClick={handleFinish}
               disabled={saving || !adapter}
             >
-              {saving ? "Setting up your Zuri…" : "Start my Season"}
+              {saving ? "Setting up your Zuri…" : "Lock in my Mode"}
             </button>
           )}
         </div>

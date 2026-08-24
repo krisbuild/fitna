@@ -6,7 +6,7 @@ import { CoachMessage, Profile } from "@/lib/types";
 import { IconArrowRight } from "@/components/icons";
 
 const SUGGESTIONS = [
-  "Is amala okay for my Season?",
+  "Is amala okay for my Mode?",
   "What should I eat before a workout?",
   "How do I hit my protein target?",
   "Give me a quick dinner idea",
@@ -80,7 +80,7 @@ export default function CoachPage() {
           Your Coach
         </h1>
         <p className="text-cream-soft text-sm mt-1">
-          Ask anything about food, your Season, or how to stay on track.
+          Ask anything about food, your Mode, or how to stay on track.
         </p>
       </div>
 

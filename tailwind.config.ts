@@ -68,15 +68,6 @@ const config: Config = {
           DEFAULT: "#5FCB8C",
           soft: "rgba(95, 203, 140, 0.15)",
         },
-        // Season system colors
-        season: {
-          lean: "#A8432B",
-          "lean-soft": "#F2C6B4",
-          build: "#BE8825",
-          "build-soft": "#EEC97B",
-          balance: "#1F3A2E",
-          "balance-soft": "#9BB6A6",
-        },
       },
       fontFamily: {
         display: ["var(--font-display)", "ui-sans-serif", "system-ui", "sans-serif"],

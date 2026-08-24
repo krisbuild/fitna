@@ -229,13 +229,13 @@ export default function SettingsPage() {
       </div>
 
       <div className="card p-5 space-y-3">
-        <p className="label-caps">Season</p>
+        <p className="label-caps">Mode</p>
         {Object.values(SEASONS).map((s) => (
           <button
             key={s.id}
             onClick={() => setProfile({ ...profile, season: s.id as Season })}
             className={clsx(
-              "w-full text-left rounded-xl2 border px-4 py-3 transition-colors",
+              "w-full text-left rounded-xl2 border px-4 py-3 transition-colors flex items-center gap-3",
               profile.season === s.id ? "border-2" : "border-white/[0.12]"
             )}
             style={
@@ -244,8 +244,13 @@ export default function SettingsPage() {
                 : undefined
             }
           >
-            <p className="font-medium text-cream">{s.name}</p>
-            <p className="text-xs text-cream-soft mt-0.5">{s.tagline}</p>
+            <span className="text-2xl leading-none">{s.emoji}</span>
+            <div>
+              <p className="font-medium text-cream">{s.name}</p>
+              <p className="text-xs mt-0.5" style={{ color: s.color }}>
+                {s.tagline}
+              </p>
+            </div>
           </button>
         ))}
       </div>

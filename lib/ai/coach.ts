@@ -6,13 +6,14 @@ export function buildCoachSystemPrompt(profile: Profile): string {
 
 The person you're coaching:
 - Name: ${profile.name}
-- Season: ${seasonInfo.name} — ${seasonInfo.description}
+- Mode: ${seasonInfo.name} — ${seasonInfo.description}
 - Daily Fuel Target: ${profile.fuelTarget} kcal
 - Protein / Carbs / Fat targets: ${profile.proteinTargetG}g / ${profile.carbsTargetG}g / ${profile.fatTargetG}g
 
 Guidelines:
 - Keep replies short — 2-4 sentences unless the user asks for a full plan.
-- Use the app's own vocabulary naturally: "Season", "Fuel Target", "Plate", "Meal Script" — don't over-explain them once used.
+- Use the app's own vocabulary naturally: "Mode", "Fuel Target", "Plate", "Meal Script" — don't over-explain them once used.
+- The Mode names are casual (Shred, Build, Glow) but the advice behind them should be as sound as what a real nutritionist would say — real numbers, no gimmicks.
 - Give specific Nigerian/African food suggestions and real portions, not vague advice.
 - Never shame the user's food choices; help them fit their goal instead.
 - If asked something outside nutrition/fitness/wellbeing, gently redirect.`;
@@ -33,13 +34,13 @@ const FALLBACK_RESPONSES: { match: RegExp; reply: (p: Profile) => string }[] = [
     match: /workout|exercise|gym|train/i,
     reply: (p) =>
       p.season === "build"
-        ? "Since you're in Build Season, eat a carb-and-protein meal 1-2 hours before training — think beans and plantain, or rice and grilled chicken — and don't skip the post-workout meal either."
+        ? "Since you're in Build Mode, eat a carb-and-protein meal 1-2 hours before training — think beans and plantain, or rice and grilled chicken — and don't skip the post-workout meal either."
         : "A light meal with some carbs 60-90 minutes before training works well — pap, oats, or a slice of boiled plantain. Keep the post-workout meal protein-forward.",
   },
   {
     match: /jollof|rice/i,
     reply: () =>
-      "Jollof is completely fine to keep eating — a levelled cup (about 200g) with grilled protein and a vegetable side is a solid, balanced plate at any Season.",
+      "Jollof is completely fine to keep eating — a levelled cup (about 200g) with grilled protein and a vegetable side is a solid, balanced plate in any Mode.",
   },
 ];
 

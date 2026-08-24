@@ -1,4 +1,4 @@
-export type Season = "lean" | "build" | "balance" | "forge";
+export type Season = "shred" | "build" | "glow";
 
 export type Sex = "male" | "female";
 
@@ -64,6 +64,7 @@ export const BUDGET_STYLES: BudgetStyleInfo[] = [
 export interface SeasonInfo {
   id: Season;
   name: string;
+  emoji: string;
   tagline: string;
   description: string;
   color: string;
@@ -71,41 +72,35 @@ export interface SeasonInfo {
 }
 
 export const SEASONS: Record<Season, SeasonInfo> = {
-  lean: {
-    id: "lean",
-    name: "Lean Season",
-    tagline: "Shedding weight, steady and sustainable",
+  shred: {
+    id: "shred",
+    name: "Shred Mode",
+    emoji: "🔥",
+    tagline: "Cutting fat without losing your mind",
     description:
-      "A gentle calorie deficit built around filling, high-protein Nigerian meals — so you lose weight without losing your favourite food.",
+      "A structured ~20% calorie deficit with protein held high — around 2g per kg of bodyweight — to protect lean mass and keep hunger in check. Built around real Nigerian meals, not bland diet food.",
     color: "#FF7A55",
     colorSoft: "rgba(255, 122, 85, 0.15)",
   },
   build: {
     id: "build",
-    name: "Build Season",
-    tagline: "Gaining weight and strength, deliberately",
+    name: "Build Mode",
+    emoji: "💪",
+    tagline: "Adding size and strength, on purpose",
     description:
-      "A calorie surplus focused on quality mass — more fuel, more protein, meal scripts built to help you grow.",
+      "A moderate ~10% calorie surplus paired with a high protein target — around 2.1g per kg of bodyweight — so the extra calories go toward muscle, not just the scale. Covers weight gain and muscle-building alike.",
     color: "#FFC65C",
     colorSoft: "rgba(255, 198, 92, 0.15)",
   },
-  balance: {
-    id: "balance",
-    name: "Balance Season",
-    tagline: "Healthy living, no extremes",
+  glow: {
+    id: "glow",
+    name: "Glow Mode",
+    emoji: "✨",
+    tagline: "Steady, sustainable, feeling good",
     description:
-      "Maintenance eating that keeps your energy steady and your relationship with food easy — for the long run.",
+      "Maintenance calories with balanced macros — about 1.6g protein per kg — built for consistency and energy, not restriction. The long-run default for staying healthy without extremes.",
     color: "#5FCB8C",
     colorSoft: "rgba(95, 203, 140, 0.15)",
-  },
-  forge: {
-    id: "forge",
-    name: "Forge Season",
-    tagline: "Building muscle, high protein",
-    description:
-      "Calories held near maintenance with protein pushed high, so training turns into muscle instead of just fatigue.",
-    color: "#FF9466",
-    colorSoft: "rgba(255, 148, 102, 0.15)",
   },
 };
 

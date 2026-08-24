@@ -6,26 +6,28 @@ architecture designed to expand globally.
 
 ## The idea
 
-Zuri doesn't use "phases" or "diets" — it uses **Seasons**:
+Zuri doesn't use "phases" or "diets" — it uses **Modes**:
 
-- **Lean Season** — a gentle calorie deficit, high protein and fibre, for weight loss.
-- **Build Season** — a calorie surplus with dense, protein-rich meals, for healthy weight gain.
-- **Balance Season** — steady maintenance eating for healthy living, no extremes.
-- **Forge Season** — calories near maintenance with protein pushed high, for muscle building.
+- **Shred Mode 🔥** — a structured ~20% calorie deficit with protein held high (~2g/kg) to protect lean mass, for fat loss.
+- **Build Mode 💪** — a moderate ~10% calorie surplus with a high protein target (~2.1g/kg), for weight gain and muscle-building alike.
+- **Glow Mode ✨** — maintenance calories with balanced macros (~1.6g/kg protein), for steady, sustainable healthy living.
+
+Mode names are catchy on purpose, but the macro science behind each one is
+built to hold up to a real nutritionist's scrutiny — nothing is dumbed down.
 
 Onboarding is a short, friendly log (not a form) that collects what actually
 personalizes the app: body stats (with BMI shown back to the user), activity
-level and gym habits, a Season/goal, food preferences (dietary pattern,
+level and gym habits, a Mode/goal, food preferences (dietary pattern,
 favourites, exclusions — all skippable, mostly tap-not-type), and a feeding
 budget style. All of it lives on the `Profile` and is editable later from
 Settings. It intentionally doesn't yet feed into Meal Script/Coach
 recommendations — that personalization layer is a deliberate next step.
 
-Everything in the app reshapes around the user's Season:
+Everything in the app reshapes around the user's Mode:
 
 - **The Plate** — daily food log, built on a Nigerian/West African food database (jollof, egusi, moi moi, suya, amala, etc.) with real local portions, plus custom food entry.
-- **Meal Script** — an AI-generated daily meal plan built from the user's Season and Fuel Target (calorie target), with a deterministic rule-based fallback so it works even without an AI key.
-- **The Kitchen** — a cookbook of healthier takes on classic Nigerian dishes (grilled instead of fried, portioned instead of guessed), tagged by Season.
+- **Meal Script** — an AI-generated daily meal plan built from the user's Mode and Fuel Target (calorie target), with a deterministic rule-based fallback so it works even without an AI key.
+- **The Kitchen** — a cookbook of healthier takes on classic Nigerian dishes (grilled instead of fried, portioned instead of guessed), tagged by Mode.
 - **Journey** — weight trend and progress tracking.
 - **Coach** — an AI chat coach grounded in Nigerian food and the user's own targets, with a rule-based fallback for offline/no-API-key use.
 
@@ -85,7 +87,7 @@ lib/
   ai/                  Prompt building + rule-based fallbacks for Meal Script and Coach
   data/                DataAdapter interface + local/Supabase implementations
   nutrition.ts         BMR/TDEE/macro target calculations (Mifflin-St Jeor)
-  types.ts             Domain types + the Season system
+  types.ts             Domain types + the Mode system
 supabase/migrations/  SQL schema + row-level security policies
 scripts/              Seed script for the shared foods/recipes tables
 ```
@@ -103,6 +105,6 @@ scripts/              Seed script for the shared foods/recipes tables
   style, gym habits) is collected and persisted but not yet used by Meal
   Script generation or Coach chat — the recommendation logic that reads
   from it is a planned next step.
-- The Kitchen's recipe seed data doesn't yet tag anything for Forge
-  Season, so its filter can come up empty there until the real cookbook
-  content is dropped in.
+- The Kitchen's recipe seed data is thin on tags for some Modes, so a
+  filter can come up empty there until the real cookbook content is
+  dropped in.

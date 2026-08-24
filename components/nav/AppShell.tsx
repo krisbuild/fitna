@@ -30,7 +30,7 @@ export function AppShell({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const season = profile?.season ?? "balance";
+  const season = profile?.season ?? "glow";
   const seasonInfo = SEASONS[season];
 
   return (

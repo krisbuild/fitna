@@ -19,7 +19,7 @@ export default function LandingPage() {
         </span>
         <div className="flex items-center gap-3">
           <Link
-            href="#seasons"
+            href="#modes"
             className="hidden sm:inline text-sm font-semibold text-cream-soft hover:text-cream transition-colors"
           >
             how it works
@@ -82,7 +82,7 @@ export default function LandingPage() {
                 <IconArrowRight className="h-4 w-4 ml-2" />
               </Link>
               <Link
-                href="#seasons"
+                href="#modes"
                 className="inline-flex items-center justify-center rounded-full border border-white/[0.15] text-cream font-semibold px-6 py-3.5 text-base hover:bg-white/5 transition-colors"
               >
                 see how it works
@@ -146,15 +146,15 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section id="seasons" className="max-w-6xl mx-auto px-6 pb-24 scroll-mt-20">
+      <section id="modes" className="max-w-6xl mx-auto px-6 pb-24 scroll-mt-20">
         <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-cream mb-2">
-          pick your season
+          what's your mode?
         </h2>
         <p className="text-cream-soft mb-6">
-          losing weight, gaining, staying steady, or building muscle — zuri
-          shifts to match.
+          cutting fat, building muscle, or staying steady — zuri shifts to
+          match. switch any time, no big commitment.
         </p>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-3 gap-4">
           {Object.values(SEASONS).map((s) => {
             const color = s.color;
             return (
@@ -163,10 +163,9 @@ export default function LandingPage() {
                 className="rounded-2xl bg-night-200 border border-white/[0.08] p-5"
                 style={{ boxShadow: `0 0 0 1px rgba(255,255,255,0.03) inset` }}
               >
-                <span
-                  className="inline-block h-2.5 w-2.5 rounded-full mb-4"
-                  style={{ backgroundColor: color, boxShadow: `0 0 12px ${color}` }}
-                />
+                <span className="text-3xl leading-none mb-4 block">
+                  {s.emoji}
+                </span>
                 <h3 className="font-display text-lg font-bold text-cream">
                   {s.name}
                 </h3>

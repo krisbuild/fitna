@@ -17,10 +17,7 @@ export function SeasonBadge({
       )}
       style={{ backgroundColor: `${info.color}1A`, color: info.color }}
     >
-      <span
-        className="inline-block h-1.5 w-1.5 rounded-full"
-        style={{ backgroundColor: info.color }}
-      />
+      <span aria-hidden>{info.emoji}</span>
       {info.name}
     </span>
   );
