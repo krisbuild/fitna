@@ -4,12 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { useZuri } from "@/lib/data/context";
-import {
-  ACTIVITY_LABELS,
-  bmiCategory,
-  calculateBMI,
-  calculateFuelTargets,
-} from "@/lib/nutrition";
+import { ACTIVITY_LABELS, calculateFuelTargets } from "@/lib/nutrition";
 import {
   ActivityLevel,
   BUDGET_STYLES,
@@ -21,6 +16,7 @@ import {
   SEASONS,
 } from "@/lib/types";
 import { IconPlus } from "@/components/icons";
+import { BmiCard } from "@/components/ui/BmiCard";
 
 export default function SettingsPage() {
   const { adapter, mode, signOut } = useZuriSafe();
@@ -84,8 +80,6 @@ export default function SettingsPage() {
 
   if (!profile) return null;
 
-  const bmi = calculateBMI(profile.weightKg, profile.heightCm);
-
   return (
     <div className="max-w-lg space-y-8">
       <h1 className="font-display text-2xl font-semibold text-cream">
@@ -126,16 +120,9 @@ export default function SettingsPage() {
             />
           </div>
         </div>
-        <div className="flex items-center justify-between pt-3 border-t border-white/[0.08]">
-          <div>
-            <p className="text-sm font-medium text-cream">Body Mass Index</p>
-            <p className="text-xs text-cream-soft">{bmiCategory(bmi)}</p>
-          </div>
-          <span className="font-display text-xl font-semibold text-cream">
-            {bmi.toFixed(1)}
-          </span>
-        </div>
       </div>
+
+      <BmiCard heightCm={profile.heightCm} weightKg={profile.weightKg} />
 
       <div className="card p-5 space-y-3">
         <p className="label-caps">Activity level</p>
@@ -259,7 +246,7 @@ export default function SettingsPage() {
         <p className="label-caps">Food preferences</p>
         <div>
           <label className="label-caps block mb-2">Dietary pattern</label>
-          <div className="flex flex-wrap gap-2">
+          <div className="space-y-2.5">
             {DIET_PATTERNS.map((d) => (
               <button
                 key={d.id}
@@ -268,13 +255,16 @@ export default function SettingsPage() {
                   setProfile({ ...profile, dietPattern: d.id as DietPattern })
                 }
                 className={clsx(
-                  "rounded-full border px-3.5 py-2 text-sm font-medium transition-colors",
+                  "w-full text-left rounded-xl2 border px-4 py-3 transition-colors",
                   profile.dietPattern === d.id
-                    ? "border-clay-500 bg-clay-500/[0.15] text-clay-100"
-                    : "border-white/[0.15] text-cream-soft"
+                    ? "border-clay-500 bg-clay-500/[0.15]"
+                    : "border-white/[0.12]"
                 )}
               >
-                {d.label}
+                <p className="font-medium text-cream text-sm">{d.label}</p>
+                <p className="text-xs text-cream-soft mt-0.5">
+                  {d.description}
+                </p>
               </button>
             ))}
           </div>

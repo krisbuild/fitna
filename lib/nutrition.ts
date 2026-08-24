@@ -89,6 +89,43 @@ export function bmiCategory(bmi: number): string {
   return "Well above healthy range";
 }
 
+export function bmiCategoryColor(bmi: number): string {
+  if (bmi < 18.5) return "#D8A13A";
+  if (bmi < 25) return "#5FCB8C";
+  if (bmi < 30) return "#FFC65C";
+  return "#FF7A55";
+}
+
+// Reads the BMI against the chosen Mode and says, in plain terms, whether
+// they're pointed the same direction — including flagging the mismatch
+// cases a nutritionist would actually raise (e.g. Shred Mode on a BMI
+// that's already underweight).
+export function bmiModeNote(season: Season, bmi: number): string {
+  if (season === "shred") {
+    if (bmi >= 25) {
+      return "This lines up with Shred Mode's goal — the deficit is built to bring it down at a sustainable, muscle-sparing pace.";
+    }
+    if (bmi < 18.5) {
+      return "Your BMI already reads underweight — worth a second look at whether Shred Mode is really what your body needs right now.";
+    }
+    return "You're already in the healthy range. Shred Mode will still work, but expect the change to be modest — this isn't a body that needs a large deficit.";
+  }
+  if (season === "build") {
+    if (bmi < 18.5) {
+      return "This lines up with Build Mode's goal — the surplus is built to move this up steadily, without rushing it.";
+    }
+    if (bmi >= 25) {
+      return "You're above the typical healthy range. Build Mode's surplus is deliberately modest, but keep an eye on how your body responds over the first few weeks.";
+    }
+    return "You're already in the healthy range. Build Mode will steer the extra calories toward muscle rather than just moving the number.";
+  }
+  // glow
+  if (bmi < 18.5 || bmi >= 25) {
+    return "Glow Mode holds you at maintenance while this settles — a steadier pace than a dedicated Shred or Build push.";
+  }
+  return "You're right in the healthy range. Glow Mode is built to keep you here, sustainably, without extremes.";
+}
+
 export function todayDateString(d: Date = new Date()): string {
   const year = d.getFullYear();
   const month = String(d.getMonth() + 1).padStart(2, "0");

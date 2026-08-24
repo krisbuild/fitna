@@ -133,3 +133,11 @@ export function IconClock({ className, style }: IconProps) {
     </svg>
   );
 }
+
+export function IconChevronDown({ className, style }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} style={style} {...base}>
+      <path d="M5.5 8.5 12 15l6.5-6.5" />
+    </svg>
+  );
+}

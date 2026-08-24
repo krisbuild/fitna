@@ -9,7 +9,7 @@ import {
   ACTIVITY_LABELS,
   calculateBMI,
   calculateFuelTargets,
-  bmiCategory,
+  bmiModeNote,
 } from "@/lib/nutrition";
 import {
   ActivityLevel,
@@ -23,11 +23,13 @@ import {
   SEASONS,
 } from "@/lib/types";
 import { IconArrowRight, IconCheck, IconPlus } from "@/components/icons";
+import { BmiCard } from "@/components/ui/BmiCard";
 
 const STEPS = [
   "About you",
   "Activity",
   "Your Mode",
+  "Your BMI",
   "Food",
   "Budget",
   "Review",
@@ -400,6 +402,26 @@ export default function OnboardingPage() {
         )}
 
         {step === 3 && (
+          <div className="space-y-5">
+            <h1 className="font-display text-2xl font-semibold text-cream">
+              Your Body Mass Index
+            </h1>
+            <p className="text-cream-soft text-sm">
+              A quick screening number from the height and weight you just
+              gave us — not a verdict, just a reference point.
+            </p>
+
+            <BmiCard heightCm={heightCm} weightKg={weightKg} />
+
+            <div className="card p-4">
+              <p className="text-sm text-cream-soft leading-relaxed">
+                {bmiModeNote(season, bmi)}
+              </p>
+            </div>
+          </div>
+        )}
+
+        {step === 4 && (
           <div className="space-y-6">
             <div>
               <h1 className="font-display text-2xl font-semibold text-cream">
@@ -413,20 +435,23 @@ export default function OnboardingPage() {
 
             <div>
               <label className="label-caps block mb-2">Any dietary pattern?</label>
-              <div className="flex flex-wrap gap-2">
+              <div className="space-y-2.5">
                 {DIET_PATTERNS.map((d) => (
                   <button
                     key={d.id}
                     type="button"
                     onClick={() => setDietPattern(d.id)}
                     className={clsx(
-                      "rounded-full border px-3.5 py-2 text-sm font-medium transition-colors",
+                      "w-full text-left rounded-xl2 border px-4 py-3 transition-colors",
                       dietPattern === d.id
-                        ? "border-clay-500 bg-clay-500/[0.15] text-clay-100"
-                        : "border-white/[0.15] text-cream-soft"
+                        ? "border-clay-500 bg-clay-500/[0.15]"
+                        : "border-white/[0.12]"
                     )}
                   >
-                    {d.label}
+                    <p className="font-medium text-cream text-sm">{d.label}</p>
+                    <p className="text-xs text-cream-soft mt-0.5">
+                      {d.description}
+                    </p>
                   </button>
                 ))}
               </div>
@@ -499,7 +524,7 @@ export default function OnboardingPage() {
           </div>
         )}
 
-        {step === 4 && (
+        {step === 5 && (
           <div className="space-y-6">
             <div>
               <h1 className="font-display text-2xl font-semibold text-cream">
@@ -551,7 +576,7 @@ export default function OnboardingPage() {
           </div>
         )}
 
-        {step === 5 && (
+        {step === 6 && (
           <div className="space-y-5">
             <h1 className="font-display text-2xl font-semibold text-cream">
               Your starting point
@@ -584,15 +609,7 @@ export default function OnboardingPage() {
               </div>
             </div>
 
-            <div className="card p-6 flex items-center justify-between">
-              <div>
-                <p className="label-caps mb-1">Body Mass Index</p>
-                <p className="text-xs text-cream-soft">{bmiCategory(bmi)}</p>
-              </div>
-              <span className="font-display text-2xl font-semibold text-cream">
-                {bmi.toFixed(1)}
-              </span>
-            </div>
+            <BmiCard heightCm={heightCm} weightKg={weightKg} />
           </div>
         )}
 
@@ -606,7 +623,7 @@ export default function OnboardingPage() {
               Back
             </button>
           )}
-          {(step === 3 || step === 4) && (
+          {(step === 4 || step === 5) && (
             <button
               className="text-sm text-cream-soft font-medium"
               onClick={() => setStep((s) => s + 1)}

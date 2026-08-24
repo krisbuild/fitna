@@ -23,16 +23,46 @@ export type DietPattern =
 export interface DietPatternInfo {
   id: DietPattern;
   label: string;
+  description: string;
 }
 
 export const DIET_PATTERNS: DietPatternInfo[] = [
-  { id: "none", label: "No restrictions" },
-  { id: "vegetarian", label: "Vegetarian" },
-  { id: "pescatarian", label: "Pescatarian" },
-  { id: "vegan", label: "Vegan" },
-  { id: "halal", label: "Halal" },
-  { id: "no_pork", label: "No pork" },
-  { id: "no_beef", label: "No beef" },
+  {
+    id: "none",
+    label: "No restrictions",
+    description: "Eats everything — plant and animal foods alike.",
+  },
+  {
+    id: "vegetarian",
+    label: "Vegetarian",
+    description: "No meat, poultry, or fish. Dairy and eggs are usually fine.",
+  },
+  {
+    id: "pescatarian",
+    label: "Pescatarian",
+    description: "Vegetarian, plus fish and seafood — no other meat.",
+  },
+  {
+    id: "vegan",
+    label: "Vegan",
+    description: "No animal products at all — no meat, dairy, eggs, or honey.",
+  },
+  {
+    id: "halal",
+    label: "Halal",
+    description:
+      "Meat from halal-slaughtered sources only — no pork, no alcohol as an ingredient.",
+  },
+  {
+    id: "no_pork",
+    label: "No pork",
+    description: "Everything else is fine — just no pork or pork products.",
+  },
+  {
+    id: "no_beef",
+    label: "No beef",
+    description: "Everything else is fine — just no beef or beef products.",
+  },
 ];
 
 export type BudgetStyle = "conservative" | "balanced" | "splurge";
