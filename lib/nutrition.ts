@@ -34,6 +34,14 @@ const SEASON_ADJUSTMENT: Record<Season, number> = {
   lean: -0.2,
   build: 0.15,
   balance: 0,
+  forge: 0.05,
+};
+
+const PROTEIN_PER_KG: Record<Season, number> = {
+  lean: 2.0,
+  build: 1.9,
+  balance: 1.6,
+  forge: 2.2,
 };
 
 export interface FuelTargets {
@@ -55,9 +63,8 @@ export function calculateFuelTargets(
   const tdee = calculateTDEE(bmr, activityLevel);
   const fuelTarget = Math.round(tdee * (1 + SEASON_ADJUSTMENT[season]));
 
-  // Protein: higher in Lean (satiety + muscle retention) and Build (growth)
-  const proteinPerKg = season === "balance" ? 1.6 : season === "lean" ? 2.0 : 1.9;
-  const proteinTargetG = Math.round(proteinPerKg * weightKg);
+  // Protein: highest in Forge (muscle growth), also elevated in Lean (satiety) and Build
+  const proteinTargetG = Math.round(PROTEIN_PER_KG[season] * weightKg);
   const proteinCalories = proteinTargetG * 4;
 
   // Fat: ~25% of total calories
@@ -69,6 +76,19 @@ export function calculateFuelTargets(
   const carbsTargetG = Math.round(carbCalories / 4);
 
   return { fuelTarget, proteinTargetG, carbsTargetG, fatTargetG };
+}
+
+export function calculateBMI(weightKg: number, heightCm: number): number {
+  const heightM = heightCm / 100;
+  if (heightM <= 0) return 0;
+  return weightKg / (heightM * heightM);
+}
+
+export function bmiCategory(bmi: number): string {
+  if (bmi < 18.5) return "Underweight";
+  if (bmi < 25) return "Healthy range";
+  if (bmi < 30) return "Above healthy range";
+  return "Well above healthy range";
 }
 
 export function todayDateString(d: Date = new Date()): string {

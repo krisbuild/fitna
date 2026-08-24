@@ -15,12 +15,14 @@ const BREAKFAST_BY_SEASON: Record<Season, string> = {
   lean: "pap",
   build: "bread-egg",
   balance: "oatmeal",
+  forge: "boiled-eggs",
 };
 
 const SNACK_BY_SEASON: Record<Season, string> = {
   lean: "watermelon",
   build: "groundnuts",
   balance: "banana",
+  forge: "groundnuts",
 };
 
 export function generateRuleBasedMealScript(
@@ -92,6 +94,7 @@ const SEASON_VOICE: Record<Season, string> = {
   lean: "a gentle calorie deficit, high protein and high fibre to stay full",
   build: "a calorie surplus with dense, protein-rich meals for quality mass gain",
   balance: "steady maintenance eating with no extremes",
+  forge: "calories near maintenance with protein pushed high, for muscle growth",
 };
 
 export function buildMealScriptSystemPrompt(): string {

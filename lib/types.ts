@@ -1,4 +1,4 @@
-export type Season = "lean" | "build" | "balance";
+export type Season = "lean" | "build" | "balance" | "forge";
 
 export type Sex = "male" | "female";
 
@@ -10,6 +10,56 @@ export type ActivityLevel =
   | "very_active";
 
 export type MealType = "breakfast" | "lunch" | "dinner" | "snack";
+
+export type DietPattern =
+  | "none"
+  | "vegetarian"
+  | "pescatarian"
+  | "vegan"
+  | "halal"
+  | "no_pork"
+  | "no_beef";
+
+export interface DietPatternInfo {
+  id: DietPattern;
+  label: string;
+}
+
+export const DIET_PATTERNS: DietPatternInfo[] = [
+  { id: "none", label: "No restrictions" },
+  { id: "vegetarian", label: "Vegetarian" },
+  { id: "pescatarian", label: "Pescatarian" },
+  { id: "vegan", label: "Vegan" },
+  { id: "halal", label: "Halal" },
+  { id: "no_pork", label: "No pork" },
+  { id: "no_beef", label: "No beef" },
+];
+
+export type BudgetStyle = "conservative" | "balanced" | "splurge";
+
+export interface BudgetStyleInfo {
+  id: BudgetStyle;
+  label: string;
+  description: string;
+}
+
+export const BUDGET_STYLES: BudgetStyleInfo[] = [
+  {
+    id: "conservative",
+    label: "Cost-conscious",
+    description: "Keep meals simple and affordable — practical over fancy.",
+  },
+  {
+    id: "balanced",
+    label: "Balanced",
+    description: "Mostly practical, with room for the occasional splurge.",
+  },
+  {
+    id: "splurge",
+    label: "I like to splurge",
+    description: "Variety and quality first — cost isn't the main constraint.",
+  },
+];
 
 export interface SeasonInfo {
   id: Season;
@@ -48,6 +98,15 @@ export const SEASONS: Record<Season, SeasonInfo> = {
     color: "#1F3A2E",
     colorSoft: "#9BB6A6",
   },
+  forge: {
+    id: "forge",
+    name: "Forge Season",
+    tagline: "Building muscle, high protein",
+    description:
+      "Calories held near maintenance with protein pushed high, so training turns into muscle instead of just fatigue.",
+    color: "#833522",
+    colorSoft: "#DB8362",
+  },
 };
 
 export interface Profile {
@@ -66,6 +125,19 @@ export interface Profile {
   fatTargetG: number;
   locale: string;
   createdAt: string;
+
+  // Lifestyle
+  worksOut: boolean;
+  workoutDaysPerWeek: number | null;
+
+  // Food preferences
+  dietPattern: DietPattern;
+  excludedFoods: string[];
+  favoriteFoodIds: string[];
+
+  // Feeding budget
+  budgetStyle: BudgetStyle;
+  weeklyFoodBudgetNaira: number | null;
 }
 
 export interface FoodItem {

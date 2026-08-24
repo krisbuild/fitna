@@ -4,14 +4,51 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { useZuri } from "@/lib/data/context";
+import { FOODS } from "@/data/foods";
 import {
   ACTIVITY_LABELS,
+  calculateBMI,
   calculateFuelTargets,
+  bmiCategory,
 } from "@/lib/nutrition";
-import { ActivityLevel, Profile, Season, Sex, SEASONS } from "@/lib/types";
-import { IconArrowRight, IconCheck } from "@/components/icons";
+import {
+  ActivityLevel,
+  BUDGET_STYLES,
+  BudgetStyle,
+  DIET_PATTERNS,
+  DietPattern,
+  Profile,
+  Season,
+  Sex,
+  SEASONS,
+} from "@/lib/types";
+import { IconArrowRight, IconCheck, IconPlus } from "@/components/icons";
 
-const STEPS = ["About you", "Activity", "Your Season", "Review"] as const;
+const STEPS = [
+  "About you",
+  "Activity",
+  "Your Season",
+  "Food",
+  "Budget",
+  "Review",
+] as const;
+
+const FAVORITE_FOOD_CHOICES = [
+  "jollof-rice",
+  "egusi-soup",
+  "eba",
+  "amala",
+  "pounded-yam",
+  "moi-moi",
+  "akara",
+  "suya",
+  "grilled-chicken",
+  "beans-porridge",
+  "fried-rice",
+  "asaro",
+]
+  .map((id) => FOODS.find((f) => f.id === id))
+  .filter((f): f is (typeof FOODS)[number] => Boolean(f));
 
 export default function OnboardingPage() {
   const { adapter, authState } = useZuri();
@@ -25,8 +62,18 @@ export default function OnboardingPage() {
   const [heightCm, setHeightCm] = useState(165);
   const [weightKg, setWeightKg] = useState(65);
   const [activityLevel, setActivityLevel] = useState<ActivityLevel>("light");
+  const [worksOut, setWorksOut] = useState(false);
+  const [workoutDaysPerWeek, setWorkoutDaysPerWeek] = useState(3);
   const [season, setSeason] = useState<Season>("balance");
   const [targetWeightKg, setTargetWeightKg] = useState<number | "">("");
+
+  const [dietPattern, setDietPattern] = useState<DietPattern>("none");
+  const [favoriteFoodIds, setFavoriteFoodIds] = useState<string[]>([]);
+  const [excludedFoods, setExcludedFoods] = useState<string[]>([]);
+  const [excludeInput, setExcludeInput] = useState("");
+
+  const [budgetStyle, setBudgetStyle] = useState<BudgetStyle>("balanced");
+  const [weeklyBudget, setWeeklyBudget] = useState<number | "">("");
 
   useEffect(() => {
     if (authState === "unauthenticated") router.replace("/signup");
@@ -40,6 +87,27 @@ export default function OnboardingPage() {
     activityLevel,
     season
   );
+  const bmi = calculateBMI(weightKg, heightCm);
+
+  function toggleFavorite(id: string) {
+    setFavoriteFoodIds((prev) =>
+      prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id]
+    );
+  }
+
+  function addExclusion() {
+    const value = excludeInput.trim();
+    if (!value || excludedFoods.includes(value)) {
+      setExcludeInput("");
+      return;
+    }
+    setExcludedFoods((prev) => [...prev, value]);
+    setExcludeInput("");
+  }
+
+  function removeExclusion(value: string) {
+    setExcludedFoods((prev) => prev.filter((v) => v !== value));
+  }
 
   async function handleFinish() {
     if (!adapter) return;
@@ -60,6 +128,13 @@ export default function OnboardingPage() {
       fatTargetG: targets.fatTargetG,
       locale: "NG",
       createdAt: new Date().toISOString(),
+      worksOut,
+      workoutDaysPerWeek: worksOut ? workoutDaysPerWeek : null,
+      dietPattern,
+      excludedFoods,
+      favoriteFoodIds,
+      budgetStyle,
+      weeklyFoodBudgetNaira: weeklyBudget === "" ? null : weeklyBudget,
     };
     await adapter.saveProfile(profile);
     router.push("/dashboard");
@@ -97,7 +172,7 @@ export default function OnboardingPage() {
             </h1>
             <p className="text-ink-soft text-sm">
               A few details so your targets are actually built for your
-              body, not a generic average.
+              body, not a generic average. Takes about a minute.
             </p>
 
             <div>
@@ -188,6 +263,59 @@ export default function OnboardingPage() {
                 </button>
               ))}
             </div>
+
+            <div className="pt-2">
+              <label className="label-caps block mb-2">
+                Do you currently work out?
+              </label>
+              <div className="grid grid-cols-2 gap-3">
+                {[true, false].map((val) => (
+                  <button
+                    key={String(val)}
+                    type="button"
+                    onClick={() => setWorksOut(val)}
+                    className={clsx(
+                      "rounded-xl2 border px-4 py-3 text-sm font-medium transition-colors",
+                      worksOut === val
+                        ? "border-clay-500 bg-clay-50 text-clay-700"
+                        : "border-ink/[0.12] text-ink-soft"
+                    )}
+                  >
+                    {val ? "Yes, I train" : "Not right now"}
+                  </button>
+                ))}
+              </div>
+              {worksOut && (
+                <div className="mt-3">
+                  <label className="label-caps block mb-2">
+                    How many days a week?
+                  </label>
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      className="btn-ghost !px-3 !py-2"
+                      onClick={() =>
+                        setWorkoutDaysPerWeek((d) => Math.max(1, d - 1))
+                      }
+                    >
+                      −
+                    </button>
+                    <span className="w-10 text-center font-medium">
+                      {workoutDaysPerWeek}
+                    </span>
+                    <button
+                      type="button"
+                      className="btn-ghost !px-3 !py-2"
+                      onClick={() =>
+                        setWorkoutDaysPerWeek((d) => Math.min(7, d + 1))
+                      }
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         )}
 
@@ -254,13 +382,165 @@ export default function OnboardingPage() {
         )}
 
         {step === 3 && (
+          <div className="space-y-6">
+            <div>
+              <h1 className="font-display text-2xl font-semibold text-ink">
+                What do you eat?
+              </h1>
+              <p className="text-ink-soft text-sm mt-1">
+                Optional, but it helps your Meal Scripts feel like your food,
+                not a stranger's. Tap what applies — no typing required.
+              </p>
+            </div>
+
+            <div>
+              <label className="label-caps block mb-2">Any dietary pattern?</label>
+              <div className="flex flex-wrap gap-2">
+                {DIET_PATTERNS.map((d) => (
+                  <button
+                    key={d.id}
+                    type="button"
+                    onClick={() => setDietPattern(d.id)}
+                    className={clsx(
+                      "rounded-full border px-3.5 py-2 text-sm font-medium transition-colors",
+                      dietPattern === d.id
+                        ? "border-clay-500 bg-clay-50 text-clay-700"
+                        : "border-ink/[0.15] text-ink-soft"
+                    )}
+                  >
+                    {d.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <label className="label-caps block mb-2">
+                A few favourites (optional)
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {FAVORITE_FOOD_CHOICES.map((f) => (
+                  <button
+                    key={f.id}
+                    type="button"
+                    onClick={() => toggleFavorite(f.id)}
+                    className={clsx(
+                      "rounded-full border px-3.5 py-2 text-sm font-medium transition-colors",
+                      favoriteFoodIds.includes(f.id)
+                        ? "border-forest-500 bg-forest-50 text-forest-700"
+                        : "border-ink/[0.15] text-ink-soft"
+                    )}
+                  >
+                    {f.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <label className="label-caps block mb-2">
+                Anything to avoid — allergies, dislikes? (optional)
+              </label>
+              <div className="flex gap-2">
+                <input
+                  className="input-field"
+                  placeholder="e.g. peanuts, seafood"
+                  value={excludeInput}
+                  onChange={(e) => setExcludeInput(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      addExclusion();
+                    }
+                  }}
+                />
+                <button
+                  type="button"
+                  className="btn-ghost !px-4 shrink-0"
+                  onClick={addExclusion}
+                  aria-label="Add"
+                >
+                  <IconPlus className="h-4 w-4" />
+                </button>
+              </div>
+              {excludedFoods.length > 0 && (
+                <div className="flex flex-wrap gap-2 mt-3">
+                  {excludedFoods.map((v) => (
+                    <button
+                      key={v}
+                      type="button"
+                      onClick={() => removeExclusion(v)}
+                      className="rounded-full bg-clay-50 text-clay-700 px-3 py-1.5 text-xs font-medium"
+                    >
+                      {v} ✕
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {step === 4 && (
+          <div className="space-y-6">
+            <div>
+              <h1 className="font-display text-2xl font-semibold text-ink">
+                What's your feeding budget like?
+              </h1>
+              <p className="text-ink-soft text-sm mt-1">
+                This just shapes how Zuri suggests meals — practical picks
+                versus more variety. Optional.
+              </p>
+            </div>
+
+            <div className="space-y-2.5">
+              {BUDGET_STYLES.map((b) => (
+                <button
+                  key={b.id}
+                  type="button"
+                  onClick={() => setBudgetStyle(b.id)}
+                  className={clsx(
+                    "w-full text-left rounded-xl2 border px-4 py-3.5 transition-colors",
+                    budgetStyle === b.id
+                      ? "border-clay-500 bg-clay-50"
+                      : "border-ink/[0.12]"
+                  )}
+                >
+                  <p className="font-medium text-ink text-sm">{b.label}</p>
+                  <p className="text-xs text-ink-soft mt-0.5">
+                    {b.description}
+                  </p>
+                </button>
+              ))}
+            </div>
+
+            <div>
+              <label className="label-caps block mb-2">
+                Weekly food budget in ₦ — optional
+              </label>
+              <input
+                type="number"
+                className="input-field"
+                placeholder="e.g. 15000"
+                value={weeklyBudget}
+                onChange={(e) =>
+                  setWeeklyBudget(
+                    e.target.value === "" ? "" : Number(e.target.value)
+                  )
+                }
+              />
+            </div>
+          </div>
+        )}
+
+        {step === 5 && (
           <div className="space-y-5">
             <h1 className="font-display text-2xl font-semibold text-ink">
-              Your daily targets
+              Your starting point
             </h1>
             <p className="text-ink-soft text-sm">
               Built from your numbers for {SEASONS[season].name}. You can
-              fine-tune anytime.
+              fine-tune anything anytime from Settings.
             </p>
             <div className="card p-6 space-y-4">
               <div className="flex items-baseline justify-between">
@@ -285,6 +565,16 @@ export default function OnboardingPage() {
                 </div>
               </div>
             </div>
+
+            <div className="card p-6 flex items-center justify-between">
+              <div>
+                <p className="label-caps mb-1">Body Mass Index</p>
+                <p className="text-xs text-ink-soft">{bmiCategory(bmi)}</p>
+              </div>
+              <span className="font-display text-2xl font-semibold text-ink">
+                {bmi.toFixed(1)}
+              </span>
+            </div>
           </div>
         )}
 
@@ -296,6 +586,15 @@ export default function OnboardingPage() {
               disabled={saving}
             >
               Back
+            </button>
+          )}
+          {(step === 3 || step === 4) && (
+            <button
+              className="text-sm text-ink-muted font-medium"
+              onClick={() => setStep((s) => s + 1)}
+              disabled={saving}
+            >
+              Skip
             </button>
           )}
           {step < STEPS.length - 1 ? (

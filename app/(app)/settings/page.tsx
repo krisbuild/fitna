@@ -4,8 +4,23 @@ import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { useZuri } from "@/lib/data/context";
-import { ACTIVITY_LABELS, calculateFuelTargets } from "@/lib/nutrition";
-import { ActivityLevel, Profile, Season, SEASONS } from "@/lib/types";
+import {
+  ACTIVITY_LABELS,
+  bmiCategory,
+  calculateBMI,
+  calculateFuelTargets,
+} from "@/lib/nutrition";
+import {
+  ActivityLevel,
+  BUDGET_STYLES,
+  BudgetStyle,
+  DIET_PATTERNS,
+  DietPattern,
+  Profile,
+  Season,
+  SEASONS,
+} from "@/lib/types";
+import { IconPlus } from "@/components/icons";
 
 export default function SettingsPage() {
   const { adapter, mode, signOut } = useZuriSafe();
@@ -13,6 +28,7 @@ export default function SettingsPage() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [saving, setSaving] = useState(false);
   const [savedAt, setSavedAt] = useState<number | null>(null);
+  const [excludeInput, setExcludeInput] = useState("");
 
   const load = useCallback(async () => {
     if (!adapter) return;
@@ -47,7 +63,28 @@ export default function SettingsPage() {
     router.push("/onboarding");
   }
 
+  function addExclusion() {
+    if (!profile) return;
+    const value = excludeInput.trim();
+    if (!value || profile.excludedFoods.includes(value)) {
+      setExcludeInput("");
+      return;
+    }
+    setProfile({ ...profile, excludedFoods: [...profile.excludedFoods, value] });
+    setExcludeInput("");
+  }
+
+  function removeExclusion(value: string) {
+    if (!profile) return;
+    setProfile({
+      ...profile,
+      excludedFoods: profile.excludedFoods.filter((v) => v !== value),
+    });
+  }
+
   if (!profile) return null;
+
+  const bmi = calculateBMI(profile.weightKg, profile.heightCm);
 
   return (
     <div className="max-w-lg space-y-8">
@@ -89,6 +126,15 @@ export default function SettingsPage() {
             />
           </div>
         </div>
+        <div className="flex items-center justify-between pt-3 border-t border-black/[0.06]">
+          <div>
+            <p className="text-sm font-medium text-ink">Body Mass Index</p>
+            <p className="text-xs text-ink-muted">{bmiCategory(bmi)}</p>
+          </div>
+          <span className="font-display text-xl font-semibold text-ink">
+            {bmi.toFixed(1)}
+          </span>
+        </div>
       </div>
 
       <div className="card p-5 space-y-3">
@@ -107,6 +153,79 @@ export default function SettingsPage() {
             {ACTIVITY_LABELS[lvl]}
           </button>
         ))}
+
+        <div className="pt-2">
+          <label className="label-caps block mb-2">
+            Do you currently work out?
+          </label>
+          <div className="grid grid-cols-2 gap-3">
+            {[true, false].map((val) => (
+              <button
+                key={String(val)}
+                type="button"
+                onClick={() =>
+                  setProfile({
+                    ...profile,
+                    worksOut: val,
+                    workoutDaysPerWeek: val
+                      ? profile.workoutDaysPerWeek ?? 3
+                      : null,
+                  })
+                }
+                className={clsx(
+                  "rounded-xl2 border px-4 py-3 text-sm font-medium transition-colors",
+                  profile.worksOut === val
+                    ? "border-clay-500 bg-clay-50 text-clay-700"
+                    : "border-ink/[0.12] text-ink-soft"
+                )}
+              >
+                {val ? "Yes, I train" : "Not right now"}
+              </button>
+            ))}
+          </div>
+          {profile.worksOut && (
+            <div className="mt-3">
+              <label className="label-caps block mb-2">
+                How many days a week?
+              </label>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  className="btn-ghost !px-3 !py-2"
+                  onClick={() =>
+                    setProfile({
+                      ...profile,
+                      workoutDaysPerWeek: Math.max(
+                        1,
+                        (profile.workoutDaysPerWeek ?? 3) - 1
+                      ),
+                    })
+                  }
+                >
+                  −
+                </button>
+                <span className="w-10 text-center font-medium">
+                  {profile.workoutDaysPerWeek ?? 3}
+                </span>
+                <button
+                  type="button"
+                  className="btn-ghost !px-3 !py-2"
+                  onClick={() =>
+                    setProfile({
+                      ...profile,
+                      workoutDaysPerWeek: Math.min(
+                        7,
+                        (profile.workoutDaysPerWeek ?? 3) + 1
+                      ),
+                    })
+                  }
+                >
+                  +
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="card p-5 space-y-3">
@@ -129,6 +248,116 @@ export default function SettingsPage() {
             <p className="text-xs text-ink-soft mt-0.5">{s.tagline}</p>
           </button>
         ))}
+      </div>
+
+      <div className="card p-5 space-y-4">
+        <p className="label-caps">Food preferences</p>
+        <div>
+          <label className="label-caps block mb-2">Dietary pattern</label>
+          <div className="flex flex-wrap gap-2">
+            {DIET_PATTERNS.map((d) => (
+              <button
+                key={d.id}
+                type="button"
+                onClick={() =>
+                  setProfile({ ...profile, dietPattern: d.id as DietPattern })
+                }
+                className={clsx(
+                  "rounded-full border px-3.5 py-2 text-sm font-medium transition-colors",
+                  profile.dietPattern === d.id
+                    ? "border-clay-500 bg-clay-50 text-clay-700"
+                    : "border-ink/[0.15] text-ink-soft"
+                )}
+              >
+                {d.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <label className="label-caps block mb-2">
+            Anything to avoid — allergies, dislikes?
+          </label>
+          <div className="flex gap-2">
+            <input
+              className="input-field"
+              placeholder="e.g. peanuts, seafood"
+              value={excludeInput}
+              onChange={(e) => setExcludeInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  addExclusion();
+                }
+              }}
+            />
+            <button
+              type="button"
+              className="btn-ghost !px-4 shrink-0"
+              onClick={addExclusion}
+              aria-label="Add"
+            >
+              <IconPlus className="h-4 w-4" />
+            </button>
+          </div>
+          {profile.excludedFoods.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-3">
+              {profile.excludedFoods.map((v) => (
+                <button
+                  key={v}
+                  type="button"
+                  onClick={() => removeExclusion(v)}
+                  className="rounded-full bg-clay-50 text-clay-700 px-3 py-1.5 text-xs font-medium"
+                >
+                  {v} ✕
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="card p-5 space-y-4">
+        <p className="label-caps">Feeding budget</p>
+        <div className="space-y-2.5">
+          {BUDGET_STYLES.map((b) => (
+            <button
+              key={b.id}
+              type="button"
+              onClick={() =>
+                setProfile({ ...profile, budgetStyle: b.id as BudgetStyle })
+              }
+              className={clsx(
+                "w-full text-left rounded-xl2 border px-4 py-3 transition-colors",
+                profile.budgetStyle === b.id
+                  ? "border-clay-500 bg-clay-50"
+                  : "border-ink/[0.12]"
+              )}
+            >
+              <p className="font-medium text-ink text-sm">{b.label}</p>
+              <p className="text-xs text-ink-soft mt-0.5">{b.description}</p>
+            </button>
+          ))}
+        </div>
+        <div>
+          <label className="label-caps block mb-2">
+            Weekly food budget in ₦ — optional
+          </label>
+          <input
+            type="number"
+            className="input-field"
+            placeholder="e.g. 15000"
+            value={profile.weeklyFoodBudgetNaira ?? ""}
+            onChange={(e) =>
+              setProfile({
+                ...profile,
+                weeklyFoodBudgetNaira:
+                  e.target.value === "" ? null : Number(e.target.value),
+              })
+            }
+          />
+        </div>
       </div>
 
       <div className="flex items-center gap-3">

@@ -27,6 +27,13 @@ function profileFromRow(row: any): Profile {
     fatTargetG: row.fat_target_g,
     locale: row.locale,
     createdAt: row.created_at,
+    worksOut: row.works_out ?? false,
+    workoutDaysPerWeek: row.workout_days_per_week ?? null,
+    dietPattern: row.diet_pattern ?? "none",
+    excludedFoods: row.excluded_foods ?? [],
+    favoriteFoodIds: row.favorite_food_ids ?? [],
+    budgetStyle: row.budget_style ?? "balanced",
+    weeklyFoodBudgetNaira: row.weekly_food_budget_naira ?? null,
   };
 }
 
@@ -129,6 +136,13 @@ export class SupabaseAdapter implements DataAdapter {
       carbs_target_g: profile.carbsTargetG,
       fat_target_g: profile.fatTargetG,
       locale: profile.locale,
+      works_out: profile.worksOut,
+      workout_days_per_week: profile.workoutDaysPerWeek,
+      diet_pattern: profile.dietPattern,
+      excluded_foods: profile.excludedFoods,
+      favorite_food_ids: profile.favoriteFoodIds,
+      budget_style: profile.budgetStyle,
+      weekly_food_budget_naira: profile.weeklyFoodBudgetNaira,
     });
     if (error) throw error;
   }

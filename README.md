@@ -9,8 +9,17 @@ architecture designed to expand globally.
 Zuri doesn't use "phases" or "diets" — it uses **Seasons**:
 
 - **Lean Season** — a gentle calorie deficit, high protein and fibre, for weight loss.
-- **Build Season** — a calorie surplus with dense, protein-rich meals, for weight/muscle gain.
+- **Build Season** — a calorie surplus with dense, protein-rich meals, for healthy weight gain.
 - **Balance Season** — steady maintenance eating for healthy living, no extremes.
+- **Forge Season** — calories near maintenance with protein pushed high, for muscle building.
+
+Onboarding is a short, friendly log (not a form) that collects what actually
+personalizes the app: body stats (with BMI shown back to the user), activity
+level and gym habits, a Season/goal, food preferences (dietary pattern,
+favourites, exclusions — all skippable, mostly tap-not-type), and a feeding
+budget style. All of it lives on the `Profile` and is editable later from
+Settings. It intentionally doesn't yet feed into Meal Script/Coach
+recommendations — that personalization layer is a deliberate next step.
 
 Everything in the app reshapes around the user's Season:
 
@@ -90,3 +99,10 @@ scripts/              Seed script for the shared foods/recipes tables
 - Supabase auth pages (`/login`, `/signup`) are implemented but only
   exercised once a real Supabase project is connected — local demo mode is
   the primary tested path in this environment.
+- The rich onboarding data (diet pattern, exclusions, favourites, budget
+  style, gym habits) is collected and persisted but not yet used by Meal
+  Script generation or Coach chat — the recommendation logic that reads
+  from it is a planned next step.
+- The Kitchen's recipe seed data doesn't yet tag anything for Forge
+  Season, so its filter can come up empty there until the real cookbook
+  content is dropped in.
