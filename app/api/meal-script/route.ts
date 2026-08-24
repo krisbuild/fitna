@@ -8,7 +8,7 @@ import {
 } from "@/lib/ai/meal-script";
 import { MealScriptItem, Season } from "@/lib/types";
 
-const VALID_SEASONS: Season[] = ["lean", "build", "balance"];
+const VALID_SEASONS: Season[] = ["lean", "build", "balance", "forge"];
 
 export async function POST(req: NextRequest) {
   const body = await req.json();

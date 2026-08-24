@@ -12,6 +12,7 @@ const FILTERS: { id: Season | "all"; label: string }[] = [
   { id: "lean", label: "Lean" },
   { id: "build", label: "Build" },
   { id: "balance", label: "Balance" },
+  { id: "forge", label: "Forge" },
 ];
 
 export default function KitchenPage() {
@@ -66,6 +67,25 @@ export default function KitchenPage() {
           </button>
         ))}
       </div>
+
+      {visible.length === 0 && (
+        <div className="card p-8 text-center">
+          <p className="text-cream font-medium">
+            No {filter !== "all" ? SEASONS[filter as Season].name : ""}{" "}
+            recipes yet
+          </p>
+          <p className="text-cream-soft text-sm mt-1">
+            We're still cooking up recipes for this Season — check back
+            soon, or browse everything below.
+          </p>
+          <button
+            onClick={() => setFilter("all")}
+            className="btn-ghost !py-2 !px-4 text-sm mt-4"
+          >
+            Browse all recipes
+          </button>
+        </div>
+      )}
 
       <div className="grid sm:grid-cols-2 gap-4">
         {visible.map((r) => (

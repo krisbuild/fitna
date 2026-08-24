@@ -18,6 +18,7 @@ export default function MealScriptPage() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [script, setScript] = useState<MealScript | null>(null);
   const [generating, setGenerating] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [loggedMeals, setLoggedMeals] = useState<Set<number>>(new Set());
   const date = todayDateString();
 
@@ -38,6 +39,7 @@ export default function MealScriptPage() {
   async function generate() {
     if (!adapter || !profile) return;
     setGenerating(true);
+    setError(null);
     try {
       const res = await fetch("/api/meal-script", {
         method: "POST",
@@ -52,6 +54,10 @@ export default function MealScriptPage() {
         }),
       });
       const data = await res.json();
+      if (!res.ok || !Array.isArray(data.meals)) {
+        setError("Couldn't build a Meal Script right now — try again in a moment.");
+        return;
+      }
       const saved = await adapter.saveMealScript({
         date,
         season: profile.season,
@@ -60,6 +66,8 @@ export default function MealScriptPage() {
       });
       setScript(saved);
       setLoggedMeals(new Set());
+    } catch {
+      setError("Couldn't build a Meal Script right now — try again in a moment.");
     } finally {
       setGenerating(false);
     }
@@ -86,7 +94,7 @@ export default function MealScriptPage() {
   if (!profile) return null;
   const seasonInfo = SEASONS[profile.season];
   const totalCalories =
-    script?.meals.reduce((sum, m) => sum + m.calories, 0) ?? 0;
+    script?.meals?.reduce((sum, m) => sum + m.calories, 0) ?? 0;
 
   return (
     <div className="max-w-2xl space-y-6">
@@ -102,7 +110,7 @@ export default function MealScriptPage() {
         </p>
       </div>
 
-      {!script ? (
+      {!script?.meals?.length ? (
         <div className="card p-8 text-center space-y-4">
           <p className="text-cream-soft text-sm">
             No Meal Script yet for today. Generate one built around your
@@ -115,6 +123,7 @@ export default function MealScriptPage() {
           >
             {generating ? "Writing your Meal Script…" : "Generate Meal Script"}
           </button>
+          {error && <p className="text-sm text-clay-300">{error}</p>}
         </div>
       ) : (
         <>
@@ -135,6 +144,7 @@ export default function MealScriptPage() {
               {generating ? "Regenerating…" : "Regenerate"}
             </button>
           </div>
+          {error && <p className="text-sm text-clay-300">{error}</p>}
 
           <div className="space-y-4">
             {script.meals.map((meal, i) => (
