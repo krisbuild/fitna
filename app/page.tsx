@@ -1,7 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Viewport } from "next";
 import { IconArrowRight, IconBook, IconChat, IconLeaf } from "@/components/icons";
-import { FoodBowl } from "@/components/illustrations/FoodBowl";
 import { Season, SEASONS } from "@/lib/types";
 
 export const viewport: Viewport = {
@@ -99,16 +99,26 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-sm">
+          <div className="relative mx-auto w-full max-w-md">
             <div
               aria-hidden
-              className="absolute inset-0 blur-3xl opacity-50"
+              className="absolute -inset-6 blur-3xl opacity-40 -z-10"
               style={{
                 background:
                   "radial-gradient(circle, #C1502E 0%, transparent 70%)",
               }}
             />
-            <FoodBowl className="relative w-full drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]" />
+            <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border border-white/10">
+              <Image
+                src="/images/food/nigerian-full-course.jpg"
+                alt="Egusi, pounded yam, jollof rice, grilled chicken and fried plantain"
+                fill
+                priority
+                sizes="(min-width: 1024px) 28rem, 90vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-night/70 via-transparent to-transparent" />
+            </div>
 
             <div className="absolute -bottom-8 -left-6 w-56 rounded-2xl bg-night-200/80 backdrop-blur-md border border-white/10 p-4 shadow-2xl">
               <div className="flex items-center justify-between mb-3">
