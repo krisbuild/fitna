@@ -1,0 +1,12 @@
+{
+  "name": "Zuri — Nutrition & Fitness",
+  "short_name": "Zuri",
+  "description": "AI nutrition coach and Nigerian healthy cookbook for your Season.",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#FBF3E7",
+  "theme_color": "#1F3A2E",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
