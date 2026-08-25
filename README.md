@@ -27,7 +27,8 @@ Everything in the app reshapes around the user's Mode:
 
 - **The Plate** — daily food log, built on a Nigerian/West African food database (jollof, egusi, moi moi, suya, amala, etc.) with real local portions, plus custom food entry.
 - **Meal Script** — an AI-generated daily meal plan built from the user's Mode and Fuel Target (calorie target), with a deterministic rule-based fallback so it works even without an AI key.
-- **The Kitchen** — a cookbook of healthier takes on classic Nigerian dishes (grilled instead of fried, portioned instead of guessed), tagged by Mode.
+- **Meal Inspo** — a browsable cookbook of healthier takes on classic Nigerian dishes (grilled instead of fried, portioned instead of guessed), tagged by Mode, with real food photography where available.
+- **Kitchen** — tell it what ingredients you actually have (type or tap-pick) and it builds a real Nigerian meal around them, portioned to the user's Mode and Fuel Target. Same AI-with-rule-based-fallback pattern as Meal Script: the fallback scores Meal Inspo's recipe dataset by ingredient overlap so it's never a dead end offline. Suggestions are saveable so a good match doesn't vanish after the session.
 - **Journey** — weight trend and progress tracking.
 - **Coach** — an AI chat coach grounded in Nigerian food and the user's own targets, with a rule-based fallback for offline/no-API-key use.
 
@@ -105,6 +106,6 @@ scripts/              Seed script for the shared foods/recipes tables
   style, gym habits) is collected and persisted but not yet used by Meal
   Script generation or Coach chat — the recommendation logic that reads
   from it is a planned next step.
-- The Kitchen's recipe seed data is thin on tags for some Modes, so a
+- Meal Inspo's recipe seed data is thin on tags for some Modes, so a
   filter can come up empty there until the real cookbook content is
   dropped in.

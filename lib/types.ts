@@ -230,7 +230,7 @@ export interface MealScript {
   createdAt: string;
 }
 
-// A single suggestion from Meal Inspo — not yet saved, not tied to a user.
+// A single suggestion from the Kitchen — not yet saved, not tied to a user.
 export interface MealIdea {
   title: string;
   description: string;
@@ -246,7 +246,7 @@ export interface MealIdea {
   steps: string[];
 }
 
-// A Meal Inspo suggestion the user chose to keep, so they can cook it
+// A Kitchen suggestion the user chose to keep, so they can cook it
 // again without re-entering the same ingredients.
 export interface SavedMeal extends MealIdea {
   id: string;

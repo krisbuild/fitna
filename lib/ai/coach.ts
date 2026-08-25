@@ -48,5 +48,5 @@ export function getFallbackCoachReply(profile: Profile, message: string): string
   for (const { match, reply } of FALLBACK_RESPONSES) {
     if (match.test(message)) return reply(profile);
   }
-  return `Good question. Right now you're in ${SEASONS[profile.season].name} with a ${profile.fuelTarget} kcal Fuel Target — stay close to that, keep protein steady, and lean on real Nigerian meals from The Kitchen rather than cutting foods out entirely. What specifically are you trying to figure out?`;
+  return `Good question. Right now you're in ${SEASONS[profile.season].name} with a ${profile.fuelTarget} kcal Fuel Target — stay close to that, keep protein steady, and lean on real Nigerian meals from Meal Inspo rather than cutting foods out entirely. What specifically are you trying to figure out?`;
 }

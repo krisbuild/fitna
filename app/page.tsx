@@ -203,7 +203,7 @@ export default function LandingPage() {
               your favs, glowed up
             </h3>
             <p className="text-sm text-cream-soft mt-2 leading-relaxed">
-              The Kitchen turns the food you already love into versions that
+              Meal Inspo turns the food you already love into versions that
               actually fit your goal — grilled not fried, portioned not
               guessed.
             </p>

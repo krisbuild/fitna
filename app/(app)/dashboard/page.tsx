@@ -140,7 +140,7 @@ export default function DashboardPage() {
         className="card p-5 flex items-center justify-between hover:shadow-lift transition-shadow"
       >
         <div>
-          <p className="label-caps mb-1">Meal Inspo</p>
+          <p className="label-caps mb-1">Kitchen</p>
           <p className="text-sm text-cream-soft">
             Got a few ingredients? We'll build a meal around them.
           </p>

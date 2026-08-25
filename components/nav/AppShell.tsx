@@ -17,7 +17,7 @@ import { SeasonBadge } from "@/components/ui/SeasonBadge";
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Today", icon: IconHome },
   { href: "/plate", label: "Plate", icon: IconPlate },
-  { href: "/kitchen", label: "Kitchen", icon: IconBook },
+  { href: "/kitchen", label: "Meal Inspo", icon: IconBook },
   { href: "/journey", label: "Journey", icon: IconChart },
   { href: "/coach", label: "Coach", icon: IconChat },
 ];

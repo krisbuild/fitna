@@ -7,6 +7,7 @@ import { PANTRY_STAPLES } from "@/lib/ai/pantry";
 import { MealIdea, Profile, SavedMeal, SEASONS } from "@/lib/types";
 import { todayDateString } from "@/lib/nutrition";
 import { IconCheck, IconPlus, IconTrash } from "@/components/icons";
+import { MealTeaserCarousel } from "@/components/ui/MealTeaserCarousel";
 
 function MealIdeaCard({
   idea,
@@ -199,7 +200,7 @@ export default function MealInspoPage() {
       setIdeas(data.ideas);
       setIdeaSource(data.source);
     } catch {
-      setError("Couldn't reach Meal Inspo right now — try again in a moment.");
+      setError("Couldn't reach the Kitchen right now — try again in a moment.");
     } finally {
       setGenerating(false);
     }
@@ -252,7 +253,7 @@ export default function MealInspoPage() {
     <div className="max-w-2xl space-y-6">
       <div>
         <h1 className="font-display text-2xl sm:text-3xl font-semibold text-cream">
-          Meal Inspo
+          Kitchen
         </h1>
         <p className="text-cream-soft text-sm mt-1">
           Tell us what's in your kitchen — we'll build a real Nigerian meal
@@ -260,17 +261,19 @@ export default function MealInspoPage() {
         </p>
       </div>
 
-      <div className="card p-5 space-y-4">
+      <MealTeaserCarousel />
+
+      <div className="card p-4 space-y-3">
         <div>
-          <label className="label-caps block mb-2">What do you have?</label>
-          <div className="flex flex-wrap gap-2">
+          <label className="label-caps block mb-1.5">What do you have?</label>
+          <div className="flex flex-wrap gap-1.5">
             {PANTRY_STAPLES.map((item) => (
               <button
                 key={item}
                 type="button"
                 onClick={() => toggleStaple(item)}
                 className={clsx(
-                  "rounded-full border px-3.5 py-2 text-sm font-medium transition-colors",
+                  "rounded-full border px-2.5 py-1 text-xs font-medium transition-colors",
                   selectedStaples.has(item)
                     ? "border-mint bg-mint/[0.15] text-mint"
                     : "border-white/[0.15] text-cream-soft"
@@ -283,12 +286,12 @@ export default function MealInspoPage() {
         </div>
 
         <div>
-          <label className="label-caps block mb-2">
+          <label className="label-caps block mb-1.5">
             Anything else? (type it in)
           </label>
           <div className="flex gap-2">
             <input
-              className="input-field"
+              className="input-field !py-2 !text-sm"
               placeholder="e.g. leftover ugu, smoked fish"
               value={customInput}
               onChange={(e) => setCustomInput(e.target.value)}
@@ -301,7 +304,7 @@ export default function MealInspoPage() {
             />
             <button
               type="button"
-              className="btn-ghost !px-4 shrink-0"
+              className="btn-ghost !px-3 !py-2 shrink-0"
               onClick={addCustomIngredient}
               aria-label="Add"
             >
@@ -309,13 +312,13 @@ export default function MealInspoPage() {
             </button>
           </div>
           {customIngredients.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-3">
+            <div className="flex flex-wrap gap-1.5 mt-2.5">
               {customIngredients.map((v) => (
                 <button
                   key={v}
                   type="button"
                   onClick={() => removeCustomIngredient(v)}
-                  className="rounded-full bg-mint/[0.15] text-mint px-3 py-1.5 text-xs font-medium"
+                  className="rounded-full bg-mint/[0.15] text-mint px-2.5 py-1 text-xs font-medium"
                 >
                   {v} ✕
                 </button>
@@ -325,11 +328,11 @@ export default function MealInspoPage() {
         </div>
 
         <button
-          className="btn-primary w-full"
+          className="btn-primary w-full !py-2.5 !text-sm"
           onClick={generate}
           disabled={generating || allIngredients.length === 0}
         >
-          {generating ? "Finding Meal Inspo…" : "Find Meal Inspo"}
+          {generating ? "Finding something to cook…" : "Find something to cook"}
         </button>
         {error && <p className="text-sm text-clay-300">{error}</p>}
       </div>
@@ -338,7 +341,7 @@ export default function MealInspoPage() {
         <div className="space-y-4">
           {ideaSource === "rule" && (
             <p className="text-xs text-cream-soft">
-              Matched from The Kitchen (offline) — connect an AI key for
+              Matched from Meal Inspo (offline) — connect an AI key for
               fully custom suggestions.
             </p>
           )}

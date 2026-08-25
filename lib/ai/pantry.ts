@@ -8,7 +8,7 @@ import {
   SEASONS,
 } from "@/lib/types";
 
-// Common Nigerian kitchen staples for the Meal Inspo ingredient picker.
+// Common Nigerian kitchen staples for the Kitchen ingredient picker.
 // Not exhaustive — free text covers anything not listed here.
 export const PANTRY_STAPLES = [
   "Yam",
@@ -66,7 +66,7 @@ function recipeToMealIdea(r: Recipe): MealIdea {
   };
 }
 
-// No AI key (or the AI call failed): score the existing Kitchen dataset by
+// No AI key (or the AI call failed): score Meal Inspo's recipe dataset by
 // how many named ingredients each recipe actually uses, so the feature
 // never comes back empty-handed even offline.
 export function generateRuleBasedMealIdeas(
@@ -97,7 +97,7 @@ export function generateRuleBasedMealIdeas(
 }
 
 export function buildPantrySystemPrompt(): string {
-  return `You are the "Meal Inspo" engine inside Zuri, an AI nutrition coach app built first for Nigerians and Africans. Given a short list of ingredients someone actually has on hand, suggest real Nigerian/West African dishes they can make with it. Mode names are casual (Shred, Build, Glow) but the nutrition should hold up to scrutiny from a qualified nutritionist.
+  return `You are the "Kitchen" engine inside Zuri, an AI nutrition coach app built first for Nigerians and Africans. Given a short list of ingredients someone actually has on hand, suggest real Nigerian/West African dishes they can make with it. Mode names are casual (Shred, Build, Glow) but the nutrition should hold up to scrutiny from a qualified nutritionist.
 
 Rules:
 - Prioritize dishes where the named ingredients are the star, not a garnish.

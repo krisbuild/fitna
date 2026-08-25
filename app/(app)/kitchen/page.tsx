@@ -42,7 +42,7 @@ export default function KitchenPage() {
     <div className="space-y-6">
       <div>
         <h1 className="font-display text-2xl sm:text-3xl font-semibold text-cream">
-          The Kitchen
+          Meal Inspo
         </h1>
         <p className="text-cream-soft text-sm mt-1">
           A Nigerian cookbook, built for whichever Mode you're in — same
@@ -57,7 +57,7 @@ export default function KitchenPage() {
         <div>
           <p className="label-caps mb-1">Got ingredients, not a plan?</p>
           <p className="text-sm text-cream-soft">
-            Tell Meal Inspo what's in your kitchen — get a real dish back.
+            Tell the Kitchen what's on hand — get a real dish back.
           </p>
         </div>
         <IconArrowRight className="h-5 w-5 text-cream-soft shrink-0" />
