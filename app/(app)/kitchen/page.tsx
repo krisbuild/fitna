@@ -3,43 +3,160 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import clsx from "clsx";
 import { useZuri } from "@/lib/data/context";
 import { Profile, Recipe, Season, SEASONS } from "@/lib/types";
-import { IconArrowRight, IconClock } from "@/components/icons";
+import { IconArrowRight, IconChevronDown, IconClock } from "@/components/icons";
 
-const FILTERS: { id: Season | "all"; label: string }[] = [
-  { id: "all", label: "All" },
-  { id: "shred", label: "Shred" },
-  { id: "build", label: "Build" },
-  { id: "glow", label: "Glow" },
-];
+const MODE_ORDER: Season[] = ["shred", "build", "glow"];
+const PER_MODE = 5;
+
+function RecipeCard({
+  recipe,
+  expanded,
+  onToggle,
+}: {
+  recipe: Recipe;
+  expanded: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <div className="card overflow-hidden">
+      {recipe.image ? (
+        <div className="relative aspect-[4/3] w-full">
+          <Image
+            src={recipe.image}
+            alt={recipe.title}
+            fill
+            sizes="(min-width: 640px) 50vw, 100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-night/85 via-night/10 to-transparent" />
+          <div className="absolute top-3 right-3 flex flex-col items-end gap-1">
+            {recipe.seasons.map((s) => (
+              <span
+                key={s}
+                className="text-[10px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full backdrop-blur-sm"
+                style={{
+                  backgroundColor: `${SEASONS[s].color}33`,
+                  color: SEASONS[s].color,
+                }}
+              >
+                {SEASONS[s].name.replace(" Mode", "")}
+              </span>
+            ))}
+          </div>
+          <h3 className="absolute bottom-3 left-4 right-4 font-display text-lg font-semibold text-cream leading-snug">
+            {recipe.title}
+          </h3>
+        </div>
+      ) : (
+        <div className="flex items-start justify-between gap-3 p-5 pb-0">
+          <div>
+            <span className="text-2xl">{recipe.emoji}</span>
+            <h3 className="font-display text-lg font-semibold text-cream mt-2">
+              {recipe.title}
+            </h3>
+          </div>
+          <div className="flex flex-col items-end gap-1">
+            {recipe.seasons.map((s) => (
+              <span
+                key={s}
+                className="text-[10px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full"
+                style={{
+                  backgroundColor: `${SEASONS[s].color}1A`,
+                  color: SEASONS[s].color,
+                }}
+              >
+                {SEASONS[s].name.replace(" Mode", "")}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="p-5">
+        <p className="text-sm text-cream-soft leading-relaxed line-clamp-2">
+          {recipe.description}
+        </p>
+        <div className="flex items-center gap-4 mt-4 text-xs text-cream-soft">
+          <span className="flex items-center gap-1">
+            <IconClock className="h-3.5 w-3.5" />
+            {recipe.prepMinutes + recipe.cookMinutes} min
+          </span>
+          <span>{recipe.caloriesPerServing} kcal / serving</span>
+          <span>{recipe.proteinG}g protein</span>
+        </div>
+
+        <button
+          type="button"
+          onClick={onToggle}
+          className="flex items-center gap-1.5 text-sm font-semibold text-clay-300 mt-4"
+        >
+          {expanded ? "Hide the recipe" : "How to make it"}
+          <IconChevronDown
+            className={`h-3.5 w-3.5 transition-transform ${expanded ? "rotate-180" : ""}`}
+          />
+        </button>
+
+        {expanded && (
+          <div className="mt-4 pt-4 border-t border-white/[0.08] space-y-4">
+            <div>
+              <p className="label-caps mb-2">Ingredients</p>
+              <ul className="space-y-1.5">
+                {recipe.ingredients.map((ing, i) => (
+                  <li key={i} className="flex gap-3 text-sm text-cream-soft">
+                    <span className="h-1.5 w-1.5 rounded-full bg-clay-500 mt-2 shrink-0" />
+                    {ing}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p className="label-caps mb-2">Method</p>
+              <ol className="space-y-2">
+                {recipe.steps.map((step, i) => (
+                  <li key={i} className="flex gap-3 text-sm text-cream-soft">
+                    <span className="font-display font-semibold text-clay-500 shrink-0">
+                      {i + 1}
+                    </span>
+                    {step}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default function KitchenPage() {
   const { adapter } = useZuri();
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [profile, setProfile] = useState<Profile | null>(null);
-  const [filter, setFilter] = useState<Season | "all">("all");
+  const [expandedKey, setExpandedKey] = useState<string | null>(null);
+  const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
     if (!adapter) return;
     adapter.getRecipes().then(setRecipes);
-    adapter.getProfile().then((p) => {
-      setProfile(p);
-      if (p) setFilter(p.season);
-    });
+    adapter.getProfile().then(setProfile);
   }, [adapter]);
 
-  const visible = useMemo(
-    () =>
-      filter === "all"
-        ? recipes
-        : recipes.filter((r) => r.seasons.includes(filter)),
-    [recipes, filter]
-  );
+  const byMode = useMemo(() => {
+    const result: Record<Season, Recipe[]> = { shred: [], build: [], glow: [] };
+    for (const mode of MODE_ORDER) {
+      const tagged = recipes.filter((r) => r.seasons.includes(mode));
+      const withPhoto = tagged.filter((r) => r.image);
+      const withoutPhoto = tagged.filter((r) => !r.image);
+      result[mode] = [...withPhoto, ...withoutPhoto].slice(0, PER_MODE);
+    }
+    return result;
+  }, [recipes]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
         <h1 className="font-display text-2xl sm:text-3xl font-semibold text-cream">
           Meal Inspo
@@ -63,117 +180,77 @@ export default function KitchenPage() {
         <IconArrowRight className="h-5 w-5 text-cream-soft shrink-0" />
       </Link>
 
-      <div className="flex gap-2 overflow-x-auto pb-1">
-        {FILTERS.map((f) => (
-          <button
-            key={f.id}
-            onClick={() => setFilter(f.id)}
-            className={clsx(
-              "shrink-0 rounded-full px-4 py-2 text-sm font-medium border transition-colors",
-              filter === f.id
-                ? "bg-cream text-night border-cream"
-                : "border-white/[0.15] text-cream-soft"
+      {MODE_ORDER.map((mode) => (
+        <div key={mode} className="space-y-4">
+          <div className="flex items-center gap-2">
+            <h2 className="font-display text-xl font-semibold text-cream">
+              {SEASONS[mode].emoji} {SEASONS[mode].name}
+            </h2>
+            {profile?.season === mode && (
+              <span
+                className="text-[10px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full"
+                style={{
+                  backgroundColor: `${SEASONS[mode].color}1A`,
+                  color: SEASONS[mode].color,
+                }}
+              >
+                you
+              </span>
             )}
-          >
-            {f.label}
-            {f.id !== "all" && profile?.season === f.id && " · you"}
-          </button>
-        ))}
-      </div>
+          </div>
 
-      {visible.length === 0 && (
-        <div className="card p-8 text-center">
-          <p className="text-cream font-medium">
-            No {filter !== "all" ? SEASONS[filter as Season].name : ""}{" "}
-            recipes yet
-          </p>
-          <p className="text-cream-soft text-sm mt-1">
-            We're still cooking up recipes for this Mode — check back
-            soon, or browse everything below.
-          </p>
-          <button
-            onClick={() => setFilter("all")}
-            className="btn-ghost !py-2 !px-4 text-sm mt-4"
-          >
-            Browse all recipes
-          </button>
-        </div>
-      )}
-
-      <div className="grid sm:grid-cols-2 gap-4">
-        {visible.map((r) => (
-          <Link
-            key={r.id}
-            href={`/kitchen/${r.slug}`}
-            className="card overflow-hidden p-0 hover:shadow-lift transition-shadow"
-          >
-            {r.image ? (
-              <div className="relative aspect-[4/3] w-full">
-                <Image
-                  src={r.image}
-                  alt={r.title}
-                  fill
-                  sizes="(min-width: 640px) 50vw, 100vw"
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-night/85 via-night/10 to-transparent" />
-                <div className="absolute top-3 right-3 flex flex-col items-end gap-1">
-                  {r.seasons.map((s) => (
-                    <span
-                      key={s}
-                      className="text-[10px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full backdrop-blur-sm"
-                      style={{
-                        backgroundColor: `${SEASONS[s].color}33`,
-                        color: SEASONS[s].color,
-                      }}
-                    >
-                      {SEASONS[s].name.replace(" Mode", "")}
-                    </span>
-                  ))}
-                </div>
-                <h3 className="absolute bottom-3 left-4 right-4 font-display text-lg font-semibold text-cream leading-snug">
-                  {r.title}
-                </h3>
-              </div>
-            ) : (
-              <div className="flex items-start justify-between gap-3 p-5 pb-0">
-                <div>
-                  <span className="text-2xl">{r.emoji}</span>
-                  <h3 className="font-display text-lg font-semibold text-cream mt-2">
-                    {r.title}
-                  </h3>
-                </div>
-                <div className="flex flex-col items-end gap-1">
-                  {r.seasons.map((s) => (
-                    <span
-                      key={s}
-                      className="text-[10px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full"
-                      style={{
-                        backgroundColor: `${SEASONS[s].color}1A`,
-                        color: SEASONS[s].color,
-                      }}
-                    >
-                      {SEASONS[s].name.replace(" Mode", "")}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-            <div className="p-5">
-              <p className="text-sm text-cream-soft leading-relaxed line-clamp-2">
-                {r.description}
-              </p>
-              <div className="flex items-center gap-4 mt-4 text-xs text-cream-soft">
-                <span className="flex items-center gap-1">
-                  <IconClock className="h-3.5 w-3.5" />
-                  {r.prepMinutes + r.cookMinutes} min
-                </span>
-                <span>{r.caloriesPerServing} kcal / serving</span>
-                <span>{r.proteinG}g protein</span>
-              </div>
+          {byMode[mode].length === 0 ? (
+            <div className="card p-6 text-center text-sm text-cream-soft">
+              We're still cooking up recipes for this Mode — check back soon.
             </div>
-          </Link>
-        ))}
+          ) : (
+            <div className="grid sm:grid-cols-2 gap-4">
+              {byMode[mode].map((r) => {
+                const key = `${mode}-${r.id}`;
+                return (
+                  <RecipeCard
+                    key={key}
+                    recipe={r}
+                    expanded={expandedKey === key}
+                    onToggle={() =>
+                      setExpandedKey((prev) => (prev === key ? null : key))
+                    }
+                  />
+                );
+              })}
+            </div>
+          )}
+        </div>
+      ))}
+
+      <div className="pt-2">
+        <button
+          type="button"
+          onClick={() => setShowAll((v) => !v)}
+          className="btn-ghost w-full sm:w-auto"
+        >
+          {showAll
+            ? "Hide the full cookbook"
+            : `Browse the full cookbook (${recipes.length} recipes)`}
+        </button>
+
+        {showAll && (
+          <div className="grid sm:grid-cols-2 gap-4 mt-4">
+            {recipes.map((r) => {
+              const key = `all-${r.id}`;
+              return (
+                <RecipeCard
+                  key={key}
+                  recipe={r}
+                  expanded={expandedKey === key}
+                  onToggle={() =>
+                    setExpandedKey((prev) => (prev === key ? null : key))
+                  }
+                />
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );
