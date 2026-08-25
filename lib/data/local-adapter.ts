@@ -7,6 +7,7 @@ import {
   MealScript,
   Profile,
   Recipe,
+  SavedMeal,
   WeightLogEntry,
 } from "@/lib/types";
 import { DataAdapter } from "./adapter";
@@ -19,6 +20,7 @@ interface LocalStore {
   weightLogs: WeightLogEntry[];
   mealScripts: MealScript[];
   coachMessages: CoachMessage[];
+  savedMeals: SavedMeal[];
 }
 
 function emptyStore(): LocalStore {
@@ -28,6 +30,7 @@ function emptyStore(): LocalStore {
     weightLogs: [],
     mealScripts: [],
     coachMessages: [],
+    savedMeals: [],
   };
 }
 
@@ -157,6 +160,32 @@ export class LocalAdapter implements DataAdapter {
 
   async getCoachMessages(): Promise<CoachMessage[]> {
     return readStore().coachMessages;
+  }
+
+  async getSavedMeals(): Promise<SavedMeal[]> {
+    return readStore().savedMeals.sort((a, b) =>
+      b.createdAt.localeCompare(a.createdAt)
+    );
+  }
+
+  async saveSavedMeal(
+    meal: Omit<SavedMeal, "id" | "createdAt">
+  ): Promise<SavedMeal> {
+    const store = readStore();
+    const full: SavedMeal = {
+      ...meal,
+      id: uid(),
+      createdAt: new Date().toISOString(),
+    };
+    store.savedMeals.push(full);
+    writeStore(store);
+    return full;
+  }
+
+  async deleteSavedMeal(id: string): Promise<void> {
+    const store = readStore();
+    store.savedMeals = store.savedMeals.filter((m) => m.id !== id);
+    writeStore(store);
   }
 
   async resetAll(): Promise<void> {

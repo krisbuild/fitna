@@ -230,6 +230,32 @@ export interface MealScript {
   createdAt: string;
 }
 
+// A single suggestion from Meal Inspo — not yet saved, not tied to a user.
+export interface MealIdea {
+  title: string;
+  description: string;
+  emoji: string;
+  prepMinutes: number;
+  cookMinutes: number;
+  servings: number;
+  caloriesPerServing: number;
+  proteinG: number;
+  carbsG: number;
+  fatG: number;
+  ingredients: string[];
+  steps: string[];
+}
+
+// A Meal Inspo suggestion the user chose to keep, so they can cook it
+// again without re-entering the same ingredients.
+export interface SavedMeal extends MealIdea {
+  id: string;
+  season: Season;
+  usedIngredients: string[];
+  source: "ai" | "rule";
+  createdAt: string;
+}
+
 export interface CoachMessage {
   id: string;
   role: "user" | "coach";

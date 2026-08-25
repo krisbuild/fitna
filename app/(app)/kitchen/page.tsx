@@ -6,7 +6,7 @@ import Image from "next/image";
 import clsx from "clsx";
 import { useZuri } from "@/lib/data/context";
 import { Profile, Recipe, Season, SEASONS } from "@/lib/types";
-import { IconClock } from "@/components/icons";
+import { IconArrowRight, IconClock } from "@/components/icons";
 
 const FILTERS: { id: Season | "all"; label: string }[] = [
   { id: "all", label: "All" },
@@ -49,6 +49,19 @@ export default function KitchenPage() {
           food, better versions.
         </p>
       </div>
+
+      <Link
+        href="/meal-inspo"
+        className="card p-5 flex items-center justify-between hover:shadow-lift transition-shadow"
+      >
+        <div>
+          <p className="label-caps mb-1">Got ingredients, not a plan?</p>
+          <p className="text-sm text-cream-soft">
+            Tell Meal Inspo what's in your kitchen — get a real dish back.
+          </p>
+        </div>
+        <IconArrowRight className="h-5 w-5 text-cream-soft shrink-0" />
+      </Link>
 
       <div className="flex gap-2 overflow-x-auto pb-1">
         {FILTERS.map((f) => (

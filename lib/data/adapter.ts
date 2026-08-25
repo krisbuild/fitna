@@ -5,6 +5,7 @@ import {
   MealScript,
   Profile,
   Recipe,
+  SavedMeal,
   WeightLogEntry,
 } from "@/lib/types";
 
@@ -35,6 +36,10 @@ export interface DataAdapter {
     message: Omit<CoachMessage, "id" | "createdAt">
   ): Promise<CoachMessage>;
   getCoachMessages(): Promise<CoachMessage[]>;
+
+  getSavedMeals(): Promise<SavedMeal[]>;
+  saveSavedMeal(meal: Omit<SavedMeal, "id" | "createdAt">): Promise<SavedMeal>;
+  deleteSavedMeal(id: string): Promise<void>;
 
   resetAll(): Promise<void>;
 }

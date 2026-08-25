@@ -6,6 +6,7 @@ import {
   MealScript,
   Profile,
   Recipe,
+  SavedMeal,
   WeightLogEntry,
 } from "@/lib/types";
 import { DataAdapter } from "./adapter";
@@ -91,6 +92,28 @@ function foodLogFromRow(row: any): FoodLogEntry {
     fatG: row.fat_g,
     loggedAt: row.logged_at,
     plateDate: row.plate_date,
+  };
+}
+
+function savedMealFromRow(row: any): SavedMeal {
+  return {
+    id: row.id,
+    title: row.title,
+    description: row.description,
+    emoji: row.emoji,
+    season: row.season,
+    usedIngredients: row.used_ingredients ?? [],
+    prepMinutes: row.prep_minutes,
+    cookMinutes: row.cook_minutes,
+    servings: row.servings,
+    caloriesPerServing: row.calories_per_serving,
+    proteinG: row.protein_g,
+    carbsG: row.carbs_g,
+    fatG: row.fat_g,
+    ingredients: row.ingredients,
+    steps: row.steps,
+    source: row.source,
+    createdAt: row.created_at,
   };
 }
 
@@ -313,6 +336,54 @@ export class SupabaseAdapter implements DataAdapter {
       content: row.content,
       createdAt: row.created_at,
     }));
+  }
+
+  async getSavedMeals(): Promise<SavedMeal[]> {
+    const { data, error } = await this.client
+      .from("saved_meals")
+      .select("*")
+      .eq("user_id", this.userId)
+      .order("created_at", { ascending: false });
+    if (error) throw error;
+    return (data ?? []).map(savedMealFromRow);
+  }
+
+  async saveSavedMeal(
+    meal: Omit<SavedMeal, "id" | "createdAt">
+  ): Promise<SavedMeal> {
+    const { data, error } = await this.client
+      .from("saved_meals")
+      .insert({
+        user_id: this.userId,
+        title: meal.title,
+        description: meal.description,
+        emoji: meal.emoji,
+        season: meal.season,
+        used_ingredients: meal.usedIngredients,
+        prep_minutes: meal.prepMinutes,
+        cook_minutes: meal.cookMinutes,
+        servings: meal.servings,
+        calories_per_serving: meal.caloriesPerServing,
+        protein_g: meal.proteinG,
+        carbs_g: meal.carbsG,
+        fat_g: meal.fatG,
+        ingredients: meal.ingredients,
+        steps: meal.steps,
+        source: meal.source,
+      })
+      .select()
+      .single();
+    if (error) throw error;
+    return savedMealFromRow(data);
+  }
+
+  async deleteSavedMeal(id: string): Promise<void> {
+    const { error } = await this.client
+      .from("saved_meals")
+      .delete()
+      .eq("id", id)
+      .eq("user_id", this.userId);
+    if (error) throw error;
   }
 
   async resetAll(): Promise<void> {

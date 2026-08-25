@@ -135,6 +135,19 @@ export default function DashboardPage() {
         <IconArrowRight className="h-5 w-5 text-cream-soft shrink-0" />
       </Link>
 
+      <Link
+        href="/meal-inspo"
+        className="card p-5 flex items-center justify-between hover:shadow-lift transition-shadow"
+      >
+        <div>
+          <p className="label-caps mb-1">Meal Inspo</p>
+          <p className="text-sm text-cream-soft">
+            Got a few ingredients? We'll build a meal around them.
+          </p>
+        </div>
+        <IconArrowRight className="h-5 w-5 text-cream-soft shrink-0" />
+      </Link>
+
       <div>
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-display text-xl font-semibold text-cream">
