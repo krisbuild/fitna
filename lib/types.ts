@@ -197,6 +197,7 @@ export interface Recipe {
   seasons: Season[];
   region: string;
   emoji: string;
+  image?: string;
   prepMinutes: number;
   cookMinutes: number;
   servings: number;

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import Image from "next/image";
 import { useZuri } from "@/lib/data/context";
 import { Recipe, SEASONS } from "@/lib/types";
 import { todayDateString } from "@/lib/nutrition";
@@ -45,29 +46,58 @@ export default function RecipeDetailPage() {
 
   return (
     <div className="max-w-2xl space-y-6">
-      <div>
-        <div className="flex flex-wrap gap-2 mb-3">
-          {recipe.seasons.map((s) => (
-            <span
-              key={s}
-              className="text-xs font-semibold px-2.5 py-1 rounded-full"
-              style={{
-                backgroundColor: `${SEASONS[s].color}1A`,
-                color: SEASONS[s].color,
-              }}
-            >
-              {SEASONS[s].name}
-            </span>
-          ))}
+      {recipe.image ? (
+        <div className="relative aspect-[16/10] w-full rounded-xl2 overflow-hidden">
+          <Image
+            src={recipe.image}
+            alt={recipe.title}
+            fill
+            priority
+            sizes="(min-width: 1024px) 42rem, 100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-night/85 via-night/5 to-transparent" />
+          <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+            {recipe.seasons.map((s) => (
+              <span
+                key={s}
+                className="text-xs font-semibold px-2.5 py-1 rounded-full backdrop-blur-sm"
+                style={{
+                  backgroundColor: `${SEASONS[s].color}33`,
+                  color: SEASONS[s].color,
+                }}
+              >
+                {SEASONS[s].name}
+              </span>
+            ))}
+          </div>
+          <h1 className="absolute bottom-4 left-4 right-4 font-display text-2xl sm:text-3xl font-semibold text-cream leading-snug">
+            {recipe.title}
+          </h1>
         </div>
-        <span className="text-4xl">{recipe.emoji}</span>
-        <h1 className="font-display text-3xl font-semibold text-cream mt-3">
-          {recipe.title}
-        </h1>
-        <p className="text-cream-soft mt-2 leading-relaxed">
-          {recipe.description}
-        </p>
-      </div>
+      ) : (
+        <div>
+          <div className="flex flex-wrap gap-2 mb-3">
+            {recipe.seasons.map((s) => (
+              <span
+                key={s}
+                className="text-xs font-semibold px-2.5 py-1 rounded-full"
+                style={{
+                  backgroundColor: `${SEASONS[s].color}1A`,
+                  color: SEASONS[s].color,
+                }}
+              >
+                {SEASONS[s].name}
+              </span>
+            ))}
+          </div>
+          <span className="text-4xl">{recipe.emoji}</span>
+          <h1 className="font-display text-3xl font-semibold text-cream mt-3">
+            {recipe.title}
+          </h1>
+        </div>
+      )}
+      <p className="text-cream-soft leading-relaxed">{recipe.description}</p>
 
       <div className="card p-5 grid grid-cols-2 sm:grid-cols-5 gap-4 text-center">
         <div>

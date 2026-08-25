@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import clsx from "clsx";
 import { useZuri } from "@/lib/data/context";
 import { Profile, Recipe, Season, SEASONS } from "@/lib/types";
@@ -91,40 +92,72 @@ export default function KitchenPage() {
           <Link
             key={r.id}
             href={`/kitchen/${r.slug}`}
-            className="card p-5 hover:shadow-lift transition-shadow"
+            className="card overflow-hidden p-0 hover:shadow-lift transition-shadow"
           >
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <span className="text-2xl">{r.emoji}</span>
-                <h3 className="font-display text-lg font-semibold text-cream mt-2">
+            {r.image ? (
+              <div className="relative aspect-[4/3] w-full">
+                <Image
+                  src={r.image}
+                  alt={r.title}
+                  fill
+                  sizes="(min-width: 640px) 50vw, 100vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-night/85 via-night/10 to-transparent" />
+                <div className="absolute top-3 right-3 flex flex-col items-end gap-1">
+                  {r.seasons.map((s) => (
+                    <span
+                      key={s}
+                      className="text-[10px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full backdrop-blur-sm"
+                      style={{
+                        backgroundColor: `${SEASONS[s].color}33`,
+                        color: SEASONS[s].color,
+                      }}
+                    >
+                      {SEASONS[s].name.replace(" Mode", "")}
+                    </span>
+                  ))}
+                </div>
+                <h3 className="absolute bottom-3 left-4 right-4 font-display text-lg font-semibold text-cream leading-snug">
                   {r.title}
                 </h3>
               </div>
-              <div className="flex flex-col items-end gap-1">
-                {r.seasons.map((s) => (
-                  <span
-                    key={s}
-                    className="text-[10px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full"
-                    style={{
-                      backgroundColor: `${SEASONS[s].color}1A`,
-                      color: SEASONS[s].color,
-                    }}
-                  >
-                    {SEASONS[s].name.replace(" Mode", "")}
-                  </span>
-                ))}
+            ) : (
+              <div className="flex items-start justify-between gap-3 p-5 pb-0">
+                <div>
+                  <span className="text-2xl">{r.emoji}</span>
+                  <h3 className="font-display text-lg font-semibold text-cream mt-2">
+                    {r.title}
+                  </h3>
+                </div>
+                <div className="flex flex-col items-end gap-1">
+                  {r.seasons.map((s) => (
+                    <span
+                      key={s}
+                      className="text-[10px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full"
+                      style={{
+                        backgroundColor: `${SEASONS[s].color}1A`,
+                        color: SEASONS[s].color,
+                      }}
+                    >
+                      {SEASONS[s].name.replace(" Mode", "")}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-            <p className="text-sm text-cream-soft mt-2 leading-relaxed line-clamp-2">
-              {r.description}
-            </p>
-            <div className="flex items-center gap-4 mt-4 text-xs text-cream-soft">
-              <span className="flex items-center gap-1">
-                <IconClock className="h-3.5 w-3.5" />
-                {r.prepMinutes + r.cookMinutes} min
-              </span>
-              <span>{r.caloriesPerServing} kcal / serving</span>
-              <span>{r.proteinG}g protein</span>
+            )}
+            <div className="p-5">
+              <p className="text-sm text-cream-soft leading-relaxed line-clamp-2">
+                {r.description}
+              </p>
+              <div className="flex items-center gap-4 mt-4 text-xs text-cream-soft">
+                <span className="flex items-center gap-1">
+                  <IconClock className="h-3.5 w-3.5" />
+                  {r.prepMinutes + r.cookMinutes} min
+                </span>
+                <span>{r.caloriesPerServing} kcal / serving</span>
+                <span>{r.proteinG}g protein</span>
+              </div>
             </div>
           </Link>
         ))}
