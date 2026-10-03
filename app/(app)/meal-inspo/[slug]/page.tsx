@@ -61,9 +61,9 @@ export default function RecipeDetailPage() {
             {recipe.seasons.map((s) => (
               <span
                 key={s}
-                className="text-xs font-semibold px-2.5 py-1 rounded-full backdrop-blur-sm"
+                className="text-xs font-semibold px-2.5 py-1 rounded-full border bg-night/80 backdrop-blur-sm"
                 style={{
-                  backgroundColor: `${SEASONS[s].color}33`,
+                  borderColor: `${SEASONS[s].color}80`,
                   color: SEASONS[s].color,
                 }}
               >

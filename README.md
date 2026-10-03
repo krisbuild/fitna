@@ -78,8 +78,8 @@ cp .env.example .env.local
 
 ```
 app/                 Next.js routes (App Router)
-  (app)/              Authenticated app shell: dashboard, plate, kitchen, journey, coach, settings
-  api/                 API routes: meal-script generation, coach chat
+  (app)/              Authenticated app shell: dashboard, plate, meal-script, meal-inspo, kitchen, journey, coach, settings
+  api/                 API routes: meal-script generation, kitchen meal ideas, coach chat
   onboarding/          Onboarding wizard
   login/, signup/      Supabase auth (only active once Supabase is configured)
 components/          Shared UI: nav shell, icons, progress ring, macro bars

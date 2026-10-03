@@ -136,7 +136,7 @@ export default function DashboardPage() {
       </Link>
 
       <Link
-        href="/meal-inspo"
+        href="/kitchen"
         className="card p-5 flex items-center justify-between hover:shadow-lift transition-shadow"
       >
         <div>
