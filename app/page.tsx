@@ -46,7 +46,7 @@ export default function LandingPage() {
         <div className="relative grid lg:grid-cols-[1fr_1fr] gap-12 items-center">
           <div>
             <span className="inline-flex items-center gap-1.5 rounded-full bg-night-300 border border-white/10 text-cream text-xs font-bold px-3.5 py-1.5">
-              🔥 your ai food bestie
+              🔥 your food bestie
             </span>
 
             <h1 className="font-display text-4xl sm:text-6xl leading-[1.02] font-extrabold mt-5 tracking-tight">
@@ -64,7 +64,7 @@ export default function LandingPage() {
             </h1>
 
             <p className="mt-5 text-xl sm:text-2xl font-semibold text-cream leading-snug">
-              your AI food bestie that figures out what to eat, tracks it,
+              your food bestie that figures out what to eat, tracks it,
               and keeps you on track.
             </p>
 

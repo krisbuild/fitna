@@ -18,7 +18,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Zuri — Eat good, feel better.",
   description:
-    "Zuri is your AI food bestie — it figures out what to eat, tracks it, and keeps you on track. Built first for Nigerians and Africans.",
+    "Zuri is your food bestie — it figures out what to eat, tracks it, and keeps you on track. Built first for Nigerians and Africans.",
   manifest: "/manifest.json",
 };
 
